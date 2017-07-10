@@ -1,4 +1,8 @@
 services:
-#    maciej_study.example:
-#        class: Maciej\MaciejBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    FileUploader:
+        class:  Maciej\MaciejBundle\Service\FileUploader
+        arguments:
+            $args:
+                logo :      '%logo_directory%'
+                company:    '%company_directory%'
+                image:      '%gameimage_directory%'
