@@ -1,0 +1,3 @@
+maciej_study_homepage:
+    path:     /
+    defaults: { _controller: MaciejStudyBundle:Default:index }
