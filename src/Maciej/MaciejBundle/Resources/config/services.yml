@@ -6,3 +6,12 @@ services:
                 logo :      '%logo_directory%'
                 company:    '%company_directory%'
                 image:      '%gameimage_directory%'
+    
+    FileHandlingListener:
+        class: Maciej\MaciejBundle\EventListener\FileHandlingListener
+        arguments: ['@FileUploader']
+        tags:
+            - { name: doctrine.event_listener, event: prePersist}
+            - { name: doctrine.event_listener, event: preUpdate}
+            - { name: doctrine.event_listener, event: preRemove}
+            - { name: doctrine.event_listener, event: postLoad}

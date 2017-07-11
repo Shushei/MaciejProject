@@ -22,17 +22,7 @@ class Company
      */
     private $id;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Game", mappedBy="company")
-     * 
-     */
-    private $games;
-
-    public function __construct()
-    {
-        $this->games = new ArrayCollection();
-        
-    }
+   
 
     /**
      * @ORM\Column(type="string", unique=true)

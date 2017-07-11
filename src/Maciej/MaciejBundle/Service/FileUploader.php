@@ -19,7 +19,6 @@ class FileUploader implements UploaderInterface
         $this->fileDir = $args;
     }
 
-
     public function setTableName($tableName)
     {
         return $this->tableName = $tableName;
@@ -44,10 +43,10 @@ class FileUploader implements UploaderInterface
     {
         $fileName = md5(uniqid()) . '.' . $file->guessExtension();
         $fileDir = $this->fileDir;
-        if ($this->tableName == 'games') {
+        if ($this->tableName == 'game') {
             $file->move($fileDir['logo'], $fileName);
         }
-        if ($this->tableName == 'companies') {
+        if ($this->tableName == 'company') {
             $file->move($fileDir['company'], $fileName);
         }
         if ($this->tableName == 'gameimage') {
@@ -58,9 +57,34 @@ class FileUploader implements UploaderInterface
 
     public function delete($fileName)
     {
-        $file = new File($fileName);
+        $fileDir = $this->fileDir;
+        if ($this->tableName == 'game') {
+            $file = new File($fileDir['logo'] . '/' . $fileName);
+        }
+        if ($this->tableName == 'company') {
+            $file = new File($fileDir['company'] . '/' . $fileName);
+        }
+        if ($this->tableName == 'gameimage') {
+            $file = new File($fileDir['image'] . '/' . $fileName);
+        }
+
         $filedelete = new Filesystem();
         $filedelete->remove($file);
+    }
+
+    public function download($fileName)
+    {
+        $fileDir = $this->fileDir;
+        if ($this->tableName == 'game') {
+            $file = new File($fileDir['logo'] . '/' . $fileName);
+        }
+        if ($this->tableName == 'company') {
+            $file = new File($fileDir['company'] . '/' . $fileName);
+        }
+        if ($this->tableName == 'gameimage') {
+            $file = new File($fileDir['image'] . '/' . $fileName);
+        }
+        return $file;
     }
 
 }

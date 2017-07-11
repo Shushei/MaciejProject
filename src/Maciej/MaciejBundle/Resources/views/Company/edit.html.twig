@@ -1,0 +1,18 @@
+{# empty Twig template #}
+{% extends 'MaciejStudyBundle:Default:Default.html.twig' %}
+
+{% block title %}Form{% endblock %}
+
+    
+{% block body %} 
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{% if not company.clogo is empty %} <img src="{{asset('/uploads/companies/' ~ company.clogo.filename)}}">
+        <a href="{{ path('companydeleteimage', {'wild' : company.id})}}">Delete Image </a>{% endif %} {{ dump(company)}}
+        <input type="submit" value="Edit"
+               class="btn btn-default pull-right"/>
+{{ form_end(form) }}
+
+
+{% endblock %}  

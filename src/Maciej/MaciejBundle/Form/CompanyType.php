@@ -17,14 +17,13 @@ class CompanyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('company', TextType::class, array(
-        'required' => true,
-        ))
-        ->add('founded', DateType::class, array(        ))
-        ->add('ownername', TextType::class, array(        ))
-        ->add('ownersurname', TextType::class, array(        ))
-        ->add('clogo', FileType::class);
-        
+                ->add('company', TextType::class, array(
+                    'required' => true,
+                ))
+                ->add('founded', DateType::class, array())
+                ->add('ownername', TextType::class, array())
+                ->add('ownersurname', TextType::class, array())
+                ->add('clogo', FileType::class, array());
     }
 
     public function configureOptions(OptionsResolver $resolver)
