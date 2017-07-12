@@ -1,0 +1,26 @@
+{# empty Twig template #}
+{% extends 'MaciejStudyBundle:Default:Default.html.twig' %}
+
+{% block title %}Form{% endblock %}
+
+
+{% block body %} 
+
+    {{ form_start(form) }}
+    {{ form_row(form.Company)}}
+    {{ form_row(form.Title)}}
+    {{ form_row(form.releaseDate)}}
+    {% if game.logo is empty %} 
+        {{ form_row(form.logo )}}
+    {% endif %}
+    {% if not game.logo is empty %} 
+        {{ form_row(form.logo, {'disabled':'disabled'}) }}
+        <img src="{{asset('/uploads/logos/' ~ game.logo.filename)}}">
+        <a href="{{ path('gamedeleteimage', {'wild' : game.id})}}">Delete Image </a>
+    {% endif %}
+    <input type="submit" value="Edit"
+           class="btn btn-default pull-right"/>
+    {{ form_end(form) }}
+
+
+{% endblock %}  

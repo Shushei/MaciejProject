@@ -22,7 +22,17 @@ class Company
      */
     private $id;
 
-   
+   /**
+     * @ORM\OneToMany(targetEntity="Game", mappedBy="company")
+     * 
+     */
+    private $games;
+
+    public function __construct()
+    {
+        $this->games = new ArrayCollection();
+        
+    }
 
     /**
      * @ORM\Column(type="string", unique=true)
@@ -114,37 +124,4 @@ class Company
     }
 
 
-    /**
-     * Add game
-     *
-     * @param \MaciejBundle\Entity\Games $game
-     *
-     * @return Companies
-     */
-    public function addGame(\MaciejBundle\Entity\Games $game)
-    {
-        $this->games[] = $game;
-
-        return $this;
-    }
-
-    /**
-     * Remove game
-     *
-     * @param \MaciejBundle\Entity\Games $game
-     */
-    public function removeGame(\MaciejBundle\Entity\Games $game)
-    {
-        $this->games->removeElement($game);
-    }
-
-    /**
-     * Get games
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getGames()
-    {
-        return $this->games;
-    }
 }
