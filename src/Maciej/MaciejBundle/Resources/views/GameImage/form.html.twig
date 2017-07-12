@@ -1,0 +1,29 @@
+{% extends 'MaciejStudyBundle:Default:Default.html.twig' %}
+{% set active = 'GamesForm'%}
+
+{% block title %}Form{% endblock %}
+{% block menu %}
+    <div class="dropdown2">
+        <button class="dropbtn">Game Galleries</button>
+        <div class="dropdown-content">
+            {% for game in games %}
+            <a href="{{ path('gameimagelist', {'wild' : game.title})}}"> {{ game.title }} Gallery</a>
+             {%endfor%}
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block body %} 
+
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <input type="submit" value="Create"
+           class="btn btn-default pull-right"/>
+    {{ form_end(form) }}
+
+
+{% endblock %}    
+

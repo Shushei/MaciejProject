@@ -13,8 +13,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Game
 {
 
-   
-
     /**
      * @ORM\Column( type="integer")
      * @ORM\Id
@@ -27,33 +25,42 @@ class Game
      * @Assert\NotBlank()
      */
     protected $title;
-    
+
+    /**
+     * @ORM\OneToMany(targetEntity="GameImage", mappedBy="title")
+     * 
+     */
+    private $images;
+
+    public function __construct()
+    {
+        $this->images = new ArrayCollection();
+    }
 
     /**
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="games")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
     protected $company;
-/**
- *@ORM\Column(type="string")
- * @assert\NotBlank(message="Please, upload logo.")
- * @Assert\File
- * 
- */
-   private $logo;
-   
-   public function getLogo()
-   {
-       return $this->logo;
-       
-   }
-   public function setLogo($logo)
-   {
-       $this->logo = $logo;
-       return $this;
-   }
-   
-   
+
+    /**
+     * @ORM\Column(type="string")
+     * @assert\NotBlank(message="Please, upload logo.")
+     * @Assert\File
+     * 
+     */
+    private $logo;
+
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+        return $this;
+    }
 
     /**
      *  @ORM\Column(type="date")
@@ -102,15 +109,14 @@ class Game
         return $this->id;
     }
 
-
     /**
      * Add image
      *
-     * @param \MaciejBundle\Entity\GameImage $image
+     * @param \Maciej\MaciejBundle\Entity\GameImage $image
      *
      * @return Games
      */
-    public function addImage(\MaciejBundle\Entity\GameImage $image)
+    public function addImage(\Maciej\MaciejBundle\Entity\GameImage $image)
     {
         $this->images[] = $image;
 
@@ -120,9 +126,9 @@ class Game
     /**
      * Remove image
      *
-     * @param \MaciejBundle\Entity\GameImage $image
+     * @param \Maciej\MaciejBundle\Entity\GameImage $image
      */
-    public function removeImage(\MaciejBundle\Entity\GameImage $image)
+    public function removeImage(\Maciej\MaciejBundle\Entity\GameImage $image)
     {
         $this->images->removeElement($image);
     }
@@ -136,4 +142,5 @@ class Game
     {
         return $this->images;
     }
+
 }

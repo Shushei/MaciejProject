@@ -44,4 +44,12 @@ gamedeleteimage:
     
 gameimageform:
     path: /gameimage/form
-    defaults: {_controller : MaciejStudyBundly:Game:form}
+    defaults: {_controller : MaciejStudyBundle:GameImage:form}
+    
+gameimagelist:
+    path:  /gameimage/list/{wild}
+    defaults: { _controller: MaciejStudyBundle:GameImage:list }
+    
+gameimagedelete:
+    path: /gameimage/delete/{wild}
+    defaults: { _controller: MaciejStudyBundle:GameImage:delete}
