@@ -46,15 +46,18 @@ class FileHandlingListener
             $file = $entity->getLogo();
             $fileName = $this->uploader->upload($file);
             $entity->setLogo($fileName);
+        }elseif ($entity instanceof Game && !empty($entity->getLogo())) {
+            $this->uploader->setTableName('game');
+            $logo = $entity->getLogo();
+            $fileName = $logo->getFileName();
+            $entity->setClogo($fileName);
         }
         if ($entity instanceof Company && $file = $entity->getClogo() instanceof UploadedFile) {
             $this->uploader->setTableName('company');
             $file = $entity->getClogo();
             $fileName = $this->uploader->upload($file);
             $entity->setClogo($fileName);
-        }
-         $clogo = $entity->getClogo();
-        if ($entity instanceof Company && !empty($clogo)) {
+        } elseif ($entity instanceof Company && !empty($entity->getClogo())) {
             $this->uploader->setTableName('company');
             $clogo = $entity->getClogo();
             $fileName = $clogo->getFileName();
@@ -65,6 +68,11 @@ class FileHandlingListener
             $file = $entity->getGameimage();
             $fileName = $this->uploader->upload($file);
             $entity->setGameimage($fileName);
+        }elseif ($entity instanceof GameImage && !empty($entity->getGameimage())) {
+            $this->uploader->setTableName('gameimage');
+            $gameimage = $entity->getGameimage();
+            $fileName = $gameimage->getFileName();
+            $entity->setClogo($fileName);
         }
 
         return;
