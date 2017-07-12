@@ -24,12 +24,24 @@ companydeleteimage:
     
 gameform:
     path:   /game/form
-    defaults: { _controller: MaciejStudyBundle:Company:form }
+    defaults: { _controller: MaciejStudyBundle:Game:form }
     
 gamelist:
-    path: /game/list
-    defaults: { _controller: MaciejStudyBundle:Company:form }
+    path:  /game/list
+    defaults: { _controller: MaciejStudyBundle:Game:list }
+    
+gamedelete:
+    path: /game/delete/{wild}
+    defaults: {_controller: MaciejStudyBundle:Game:delete}
+    
+gameedit:
+    path: /game/edit/{wild}
+    defaults: {_controller: MaciejStudyBundle:Game:edit}
+    
+gamedeleteimage:
+    path: /game/imagedelete/{wild}
+    defaults: { _controller: MaciejStudyBundle:Game:deleteimage}
     
 gameimageform:
     path: /gameimage/form
-    defaults: { _controller: MaciejStudyBundle:Company:form }
+    defaults: {_controller : MaciejStudyBundly:Game:form}

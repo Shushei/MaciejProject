@@ -46,7 +46,7 @@ class FileHandlingListener
             $file = $entity->getLogo();
             $fileName = $this->uploader->upload($file);
             $entity->setLogo($fileName);
-        }elseif ($entity instanceof Game && !empty($entity->getLogo())) {
+        } elseif ($entity instanceof Game && !empty($entity->getLogo())) {
             $this->uploader->setTableName('game');
             $logo = $entity->getLogo();
             $fileName = $logo->getFileName();
@@ -68,7 +68,7 @@ class FileHandlingListener
             $file = $entity->getGameimage();
             $fileName = $this->uploader->upload($file);
             $entity->setGameimage($fileName);
-        }elseif ($entity instanceof GameImage && !empty($entity->getGameimage())) {
+        } elseif ($entity instanceof GameImage && !empty($entity->getGameimage())) {
             $this->uploader->setTableName('gameimage');
             $gameimage = $entity->getGameimage();
             $fileName = $gameimage->getFileName();
@@ -101,16 +101,28 @@ class FileHandlingListener
     public function postLoad(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if (!$entity instanceof Company) {
-            return;
-        }
-
-        if ($filename = $entity->getClogo()) {
+        if ($entity instanceof Company) {
+            $filename = $entity->getClogo();
             if (!empty($filename)) {
                 $fileDir = $this->uploader->getFileDir();
                 $entity->setClogo(new File($fileDir['company'] . '/' . $filename));
             }
         }
+        if ($entity instanceof Game) {
+            $filename = $entity->getLogo();
+            if (!empty($filename)) {
+                $fileDir = $this->uploader->getFileDir();
+                $entity->setLogo(new File($fileDir['logo'] . '/' . $filename));
+            }
+        }
+        if ($entity instanceof GameImage) {
+            $filename = $entity->getGameImage();
+            if (!empty($filename)) {
+                $fileDir = $this->uploader->getFileDir();
+                $entity->setGameImage(new File($fileDir['gameimage'] . '/' . $filename));
+            }
+        }
+        return;
     }
 
 }

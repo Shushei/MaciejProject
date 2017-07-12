@@ -4,7 +4,6 @@ namespace Maciej\MaciejBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Maciej\MaciejBundle\Service\FileUploader;
 use Maciej\MaciejBundle\Form\CompanyType;
 use Maciej\MaciejBundle\Entity\Company;
 
@@ -61,7 +60,7 @@ class CompanyController extends Controller
 
 
         if ($form->isSubmitted() && ($form->isValid() OR empty($clogo))) {
-            if($clogo != $company->getClogo()){
+            if($clogo != $company->getClogo()&& !empty($clogo)){
                 $company->setClogo($clogo);
             }
           
