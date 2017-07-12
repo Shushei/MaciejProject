@@ -53,6 +53,13 @@ class FileHandlingListener
             $fileName = $this->uploader->upload($file);
             $entity->setClogo($fileName);
         }
+         $clogo = $entity->getClogo();
+        if ($entity instanceof Company && !empty($clogo)) {
+            $this->uploader->setTableName('company');
+            $clogo = $entity->getClogo();
+            $fileName = $clogo->getFileName();
+            $entity->setClogo($fileName);
+        }
         if ($entity instanceof GameImage && $file = $entity->getGameimage() instanceof UploadedFile) {
             $this->uploader->setTableName('gameimage');
             $file = $entity->getGameimage();

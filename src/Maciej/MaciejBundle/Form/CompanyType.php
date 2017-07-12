@@ -23,7 +23,9 @@ class CompanyType extends AbstractType
                 ->add('founded', DateType::class, array())
                 ->add('ownername', TextType::class, array())
                 ->add('ownersurname', TextType::class, array())
-                ->add('clogo', FileType::class, array());
+                ->add('clogo', FileType::class, array(
+                    
+                ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

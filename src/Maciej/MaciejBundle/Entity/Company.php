@@ -50,8 +50,8 @@ class Company
     protected $ownersurname;
     
     /**
- *@ORM\Column(type="string")
- * @assert\NotBlank(message="Please, upload logo.")
+ *@ORM\Column(type="string", nullable = true)
+ * 
  * @Assert\File
  * 
  */

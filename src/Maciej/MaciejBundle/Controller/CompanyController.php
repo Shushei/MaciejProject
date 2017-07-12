@@ -50,18 +50,21 @@ class CompanyController extends Controller
 
     public function editAction(Request $request)
     {
-     
+
         $em = $this->getDoctrine()->getManager();
         $edit = $request->get('wild');
         $company = $em->getRepository('MaciejStudyBundle:Company')->find($edit);
-        
-       
+        $clogo = $company->getClogo();
+
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
 
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            
+        if ($form->isSubmitted() && ($form->isValid() OR empty($clogo))) {
+            if($clogo != $company->getClogo()){
+                $company->setClogo($clogo);
+            }
+          
             $em->persist($company);
             $em->flush();
 
@@ -84,8 +87,8 @@ class CompanyController extends Controller
         $company->setClogo('');
         $em->persist($company);
         $em->flush();
-       
-        
+
+
 
         return $this->redirectToRoute('companyedit', array('wild' => $delete));
     }
