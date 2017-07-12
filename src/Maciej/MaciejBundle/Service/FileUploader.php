@@ -50,7 +50,7 @@ class FileUploader implements UploaderInterface
             $file->move($fileDir['company'], $fileName);
         }
         if ($this->tableName == 'gameimage') {
-            $file->move($fileDir['image'], $fileName);
+            $file->move($fileDir['gameimage'], $fileName);
         }
         return $fileName;
     }
@@ -65,7 +65,7 @@ class FileUploader implements UploaderInterface
             $file = new File($fileDir['company'] . '/' . $fileName);
         }
         if ($this->tableName == 'gameimage') {
-            $file = new File($fileDir['image'] . '/' . $fileName);
+            $file = new File($fileDir['gameimage'] . '/' . $fileName);
         }
 
         $filedelete = new Filesystem();
@@ -82,9 +82,13 @@ class FileUploader implements UploaderInterface
             $file = new File($fileDir['company'] . '/' . $fileName);
         }
         if ($this->tableName == 'gameimage') {
-            $file = new File($fileDir['image'] . '/' . $fileName);
+            $file = new File($fileDir['gameimage'] . '/' . $fileName);
         }
         return $file;
     }
-
+    public function listing()
+    {
+        $url = null;
+        return $url;
+    }
 }

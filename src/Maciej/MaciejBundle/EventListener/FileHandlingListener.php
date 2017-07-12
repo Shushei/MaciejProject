@@ -46,18 +46,18 @@ class FileHandlingListener
             $file = $entity->getLogo();
             $fileName = $this->uploader->upload($file);
             $entity->setLogo($fileName);
-        } elseif ($entity instanceof Game && !empty($entity->getLogo())) {
+        } elseif ($entity instanceof Game && !empty($entity->getLogo()->getFileName())) {
             $this->uploader->setTableName('game');
             $logo = $entity->getLogo();
             $fileName = $logo->getFileName();
-            $entity->setClogo($fileName);
+            $entity->setLogo($fileName);
         }
         if ($entity instanceof Company && $file = $entity->getClogo() instanceof UploadedFile) {
             $this->uploader->setTableName('company');
             $file = $entity->getClogo();
             $fileName = $this->uploader->upload($file);
             $entity->setClogo($fileName);
-        } elseif ($entity instanceof Company && !empty($entity->getClogo())) {
+        } elseif ($entity instanceof Company && !empty($entity->getClogo()->getFileName())) {
             $this->uploader->setTableName('company');
             $clogo = $entity->getClogo();
             $fileName = $clogo->getFileName();
@@ -68,11 +68,11 @@ class FileHandlingListener
             $file = $entity->getGameimage();
             $fileName = $this->uploader->upload($file);
             $entity->setGameimage($fileName);
-        } elseif ($entity instanceof GameImage && !empty($entity->getGameimage())) {
+        } elseif ($entity instanceof GameImage && !empty($entity->getGameimage()->getFileName())) {
             $this->uploader->setTableName('gameimage');
             $gameimage = $entity->getGameimage();
             $fileName = $gameimage->getFileName();
-            $entity->setClogo($fileName);
+            $entity->setGameimage($fileName);
         }
 
         return;
@@ -82,17 +82,17 @@ class FileHandlingListener
     {
         if ($entity instanceof Game) {
             $this->uploader->setTableName('game');
-            $fileName = $entity->getLogo();
+            $fileName = $entity->getLogo()->getFileName();
             $this->uploader->delete($fileName);
         }
         if ($entity instanceof Company) {
             $this->uploader->setTableName('company');
-            $fileName = $entity->getClogo();
+            $fileName = $entity->getClogo()->getFileName();
             $this->uploader->delete($fileName);
         }
         if ($entity instanceof GameImage) {
             $this->uploader->setTableName('gameimage');
-            $fileName = $entity->getGameimage();
+            $fileName = $entity->getGameimage()->getFileName();
             $this->uploader->delete($fileName);
         }
         return;
