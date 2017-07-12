@@ -1,3 +1,35 @@
 maciej_study_homepage:
     path:     /
     defaults: { _controller: MaciejStudyBundle:Default:index }
+    
+companyform:
+    path:   /company/form
+    defaults: { _controller: MaciejStudyBundle:Company:form }
+    
+companylist:
+    path:  /company/list
+    defaults: { _controller: MaciejStudyBundle:Company:list }
+    
+companydelete:
+    path: /company/delete/{wild}
+    defaults: {_controller: MaciejStudyBundle:Company:delete}
+    
+companyedit:
+    path: /company/edit/{wild}
+    defaults: {_controller: MaciejStudyBundle:Company:edit}
+    
+companydeleteimage:
+    path: /company/imagedelete/{wild}
+    defaults: { _controller: MaciejStudyBundle:Company:deleteimage}
+    
+gameform:
+    path:   /game/form
+    defaults: { _controller: MaciejStudyBundle:Company:form }
+    
+gamelist:
+    path: /game/list
+    defaults: { _controller: MaciejStudyBundle:Company:form }
+    
+gameimageform:
+    path: /gameimage/form
+    defaults: { _controller: MaciejStudyBundle:Company:form }

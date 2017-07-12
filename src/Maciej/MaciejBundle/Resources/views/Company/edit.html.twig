@@ -1,0 +1,27 @@
+{# empty Twig template #}
+{% extends 'MaciejStudyBundle:Default:Default.html.twig' %}
+
+{% block title %}Form{% endblock %}
+
+
+{% block body %} 
+    {{dump(form.clogo)}}
+    {{ form_start(form) }}
+    {{ form_row(form.company)}}
+    {{ form_row(form.founded)}}
+    {{ form_row(form.ownername)}}
+    {{ form_row(form.ownersurname)}}
+    {% if company.clogo is empty %} 
+        {{ form_row(form.clogo )}}
+    {% endif %}
+    {% if not company.clogo is empty %} 
+        {{ form_row(form.clogo, {'disabled':'disabled'}) }}
+        <img src="{{asset('/uploads/companies/' ~ company.clogo.filename)}}">
+        <a href="{{ path('companydeleteimage', {'wild' : company.id})}}">Delete Image </a>
+    {% endif %} {{ dump(company)}}
+    <input type="submit" value="Edit"
+           class="btn btn-default pull-right"/>
+    {{ form_end(form) }}
+{{dump(form.clogo)}}
+
+{% endblock %}  

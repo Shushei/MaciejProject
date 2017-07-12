@@ -1,0 +1,49 @@
+{# empty Twig template #}
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Test Application{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('/bundles/maciejstudy/css/style.css') }}">
+
+    </head>
+    <body>
+        <div id="sidebar">
+            {% block sidebar %}
+                <div class="dropdown">
+                    <button class="dropbtn">Companies</button>
+                    <div class="dropdown-content">
+                        <a href="{{ path('companyform')}}">Company Form</a>
+                        <a href="{{ path('companylist')}}">Company List</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn">Games</button>
+                    <div class="dropdown-content">
+                        <a href="{{ path('gameform')}}">Games Form</a>
+                        <a href="{{ path('gamelist')}}">Games List</a>
+                    </div>
+                </div>
+                <div class="dropdown2">
+                    <button class="dropbtn">Games</button>
+                    <div class="dropdown-content">
+                        <a href="{{ path('gameimageform')}}">Games Images Form</a>
+
+                    </div>
+
+                </div>
+            {% block menu %}{% endblock %}
+
+
+        {% endblock %}
+    </div>
+
+    <div id="content">
+    {% block body %}{% endblock %}
+</div>
+</body>
+</html>     
