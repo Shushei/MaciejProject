@@ -7,6 +7,21 @@ services:
                 company:    '%company_directory%'
                 gameimage:      '%gameimage_directory%'
     
+    FileUploaderAWS:   
+        class: Maciej\MaciejBundle\Service\FileUploaderAWS
+        arguments:
+            $s3Client: "@made_amazon.s3_client"            
+                
+    made_amazon.s3_client:
+        class: Aws\S3\S3Client
+        arguments:
+            $args:
+                version: 'latest'
+                region: 'us-east-1'
+                credentials:
+                      key: %aws_s3_key%
+                      secret: %aws_s3_secret%
+    
     FileHandlingListener:
         class: Maciej\MaciejBundle\EventListener\FileHandlingListener
         arguments: ['@FileUploader']

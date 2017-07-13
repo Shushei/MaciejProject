@@ -1,5 +1,6 @@
 /.web-server-pid
 /app/config/parameters.yml
+/src/Maciej/MaciejBundle/Resources/config/parametersAWS.yml
 /build/
 /phpunit.xml
 /var/*

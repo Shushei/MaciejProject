@@ -16,6 +16,8 @@ class CompanyController extends Controller
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
+        $fileUploader = $this->get('FileUploaderAWS');
+        $client = $fileUploader->delete($company);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -60,10 +62,10 @@ class CompanyController extends Controller
 
 
         if ($form->isSubmitted() && ($form->isValid() OR empty($clogo))) {
-            if($clogo != $company->getClogo()&& !empty($clogo)){
+            if ($clogo != $company->getClogo() && !empty($clogo)) {
                 $company->setClogo($clogo);
             }
-          
+
             $em->persist($company);
             $em->flush();
 
