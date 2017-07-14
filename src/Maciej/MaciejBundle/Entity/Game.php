@@ -45,7 +45,7 @@ class Game
 
     /**
      * @ORM\Column(type="string")
-     * @assert\NotBlank(message="Please, upload logo.")
+     * 
      * @Assert\File
      * 
      */

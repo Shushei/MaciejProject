@@ -26,7 +26,9 @@ class GameType extends AbstractType
                 ->add('Title', TextType::class, array(
                 ))
                 ->add('releaseDate', DateType::class)
-                ->add('logo', FileType::class);
+                ->add('logo', FileType::class, array(
+                    'data_class' => null,
+                    'required' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -7,6 +7,21 @@ services:
                 company:    '%company_directory%'
                 gameimage:      '%gameimage_directory%'
     
+    FileUploaderAWS:   
+        class: Maciej\MaciejBundle\Service\FileUploaderAWS
+        arguments:
+            $s3Client: "@amazon.s3_client"            
+                
+    amazon.s3_client:
+        class: Aws\S3\S3Client
+        arguments:
+            -
+                version: '2006-03-01'
+                region: 'us-east-1'
+                credentials:
+                    key: %aws_s3_key%
+                    secret: %aws_s3_secret%
+    
     FileHandlingListener:
         class: Maciej\MaciejBundle\EventListener\FileHandlingListener
         arguments: ['@FileUploader']
@@ -14,4 +29,3 @@ services:
             - { name: doctrine.event_listener, event: prePersist}
             - { name: doctrine.event_listener, event: preUpdate}
             - { name: doctrine.event_listener, event: preRemove}
-            - { name: doctrine.event_listener, event: postLoad}

@@ -20,12 +20,19 @@
     {% if urls is empty %}
         {%for image in images %}
             {% if image.title == game1 %}
-                <img src="{{asset('/uploads/gameimages/' ~ image.gameimage.filename )}}"> 
-                
-                
+                <img src="{{asset('/uploads/gameimages/' ~ image.gameimage )}}"> 
                 <a href="{{path('gameimagedelete', {'wild' : image.id})}}"> Delete </a>
             {%endif%}
         {%endfor%}
-    {%endif%}
+    {% else %}
+        {%for url in urls %}
+            {%for image in images %}
+                {% if url.key == image.gameimage and image.title == game1%} 
+                    <img src="{{asset(url.url)}}"> 
+                    <a href="{{path('gameimagedelete', {'wild' : image.id})}}"> Delete </a>
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
 
 {% endblock %}  
