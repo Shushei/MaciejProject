@@ -24,8 +24,17 @@
        
       
         <td> {{game.releaseDate.format('Y-m-d')}} </td>
-        <td>{% if not game.logo is empty %} <img src="{{asset('/uploads/logos/' ~ game.logo.filename)}}"> 
-        {% endif %}
+        <td>
+            {% if urls is empty %} 
+                        <img src="{{asset('/uploads/logos/' ~ game.logo)}}"> 
+                    {% else %}
+                        {%for url in urls %}
+                            {% if url.key == game.logo %} 
+                                <img src="{{asset(url.url)}}"> 
+
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
         </td>
         <td>  <a href="{{ path('gamedelete', {'wild' : game.id})}}">Delete</a> </td>
         <td>  <a href="{{ path('gameedit', {'wild' : game.id})}}">Edit</a> </td>

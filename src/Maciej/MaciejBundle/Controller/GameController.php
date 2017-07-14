@@ -31,9 +31,15 @@ class GameController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $fileUploader = $this->get('FileUploader');
+        $fileUploader->setTableName('game');
+        $url = $fileUploader->listing();
         $repository = $em->getRepository('MaciejStudyBundle:Game')->findAll();
 
-        return $this->render('MaciejStudyBundle:Game:list.html.twig', array('games' => $repository));
+
+
+
+        return $this->render('MaciejStudyBundle:Game:list.html.twig', array('games' => $repository, 'urls' => $url));
     }
 
     public function deleteAction(Request $request)
@@ -54,23 +60,31 @@ class GameController extends Controller
         $edit = $request->get('wild');
         $game = $em->getRepository('MaciejStudyBundle:Game')->find($edit);
         $logo = $game->getLogo();
+        $fileUploader = $this->get('FileUploader');
+        $fileUploader->setTableName('game');
+        $url = $fileUploader->listing();
 
         $form = $this->createForm(GameType::class, $game);
         $form->handleRequest($request);
 
 
-        if ($form->isSubmitted() && ($form->isValid() OR empty($logo))) {
-            if($logo != $game->getLogo() && !empty($logo)){
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (empty($game->getLogo()) && !empty($logo)) {
                 $game->setLogo($logo);
+            } elseif (!empty($game->getLogo()) && !empty($logo)) {
+                $fileUploader->delete($logo);
             }
-          
+
             $em->persist($game);
             $em->flush();
 
 
             return $this->redirectToRoute('gamelist');
         }
-        return $this->render('MaciejStudyBundle:Game:edit.html.twig', array('form' => $form->createView(), 'game' => $game));
+        return $this->render('MaciejStudyBundle:Game:edit.html.twig', array(
+                    'form' => $form->createView(),
+                    'game' => $game,
+                    'urls' => $url));
     }
 
     public function deleteimageAction(Request $request)
@@ -81,8 +95,8 @@ class GameController extends Controller
         $delete = $request->get('wild');
         $game = $em->getRepository('MaciejStudyBundle:Game')->find($delete);
         $logo = $game->getLogo();
-        $logoName = $logo->getFilename();
-        $fileUploader->delete($logoName);
+
+        $fileUploader->delete($logo);
         $game->setLogo('');
         $em->persist($game);
         $em->flush();

@@ -5,23 +5,25 @@
 
 
 {% block body %} 
-    {{dump(form.clogo)}}
+
     {{ form_start(form) }}
-    {{ form_row(form.company)}}
-    {{ form_row(form.founded)}}
-    {{ form_row(form.ownername)}}
-    {{ form_row(form.ownersurname)}}
-    {% if company.clogo is empty %} 
-        {{ form_row(form.clogo )}}
+     {{ form_widget(form) }}
+
+     {% if not company.clogo is empty%}
+   {% if urls is empty %} 
+        <img src="{{asset('/uploads/companies/' ~ company.clogo)}}"> 
+    {% else %}
+        {%for url in urls %}
+            {% if url.key == company.clogo %} 
+                <img src="{{asset(url.url)}}"> 
+
+            {% endif %}
+        {% endfor %}
     {% endif %}
-    {% if not company.clogo is empty %} 
-        {{ form_row(form.clogo, {'disabled':'disabled'}) }}
-        <img src="{{asset('/uploads/companies/' ~ company.clogo.filename)}}">
-        <a href="{{ path('companydeleteimage', {'wild' : company.id})}}">Delete Image </a>
-    {% endif %} {{ dump(company)}}
+    <a href="{{ path('companydeleteimage', {'wild' : company.id})}}">Delete Image </a>
+{%endif%}
     <input type="submit" value="Edit"
            class="btn btn-default pull-right"/>
-    {{ form_end(form) }}
-{{dump(form.clogo)}}
+
 
 {% endblock %}  

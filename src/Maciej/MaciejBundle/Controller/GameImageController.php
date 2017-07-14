@@ -33,6 +33,7 @@ class GameImageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $fileUploader = $this->get('FileUploader');
+        $fileUploader->setTableName('gameimage');
         $repository = $em->getRepository('MaciejStudyBundle:GameImage')->findAll();
         $games = $em->getRepository('MaciejStudyBundle:Game')->findall();
         $title = $request->get('wild');
@@ -57,7 +58,7 @@ class GameImageController extends Controller
         $em->remove($GameImage);
         $em->flush();
 
-        return $this->redirecttoRoute('gameimagelist', array('wild'=>$title));
+        return $this->redirecttoRoute('gameimagelist', array('wild' => $title));
     }
 
     public function editAction(Request $request)
@@ -83,7 +84,9 @@ class GameImageController extends Controller
 
             return $this->redirectToRoute('GameImagelist');
         }
-        return $this->render('MaciejStudyBundle:GameImage:edit.html.twig', array('form' => $form->createView(), 'GameImage' => $GameImage));
+        return $this->render('MaciejStudyBundle:GameImage:edit.html.twig', array(
+                    'form' => $form->createView(),
+                    'GameImage' => $GameImage));
     }
 
     public function deleteimageAction(Request $request)

@@ -7,17 +7,21 @@
 {% block body %} 
 
     {{ form_start(form) }}
-    {{ form_row(form.Company)}}
-    {{ form_row(form.Title)}}
-    {{ form_row(form.releaseDate)}}
-    {% if game.logo is empty %} 
-        {{ form_row(form.logo )}}
+    {{ form_widget(form) }}
+
+     {% if not game.logo is empty%}
+   {% if urls is empty %} 
+        <img src="{{asset('/uploads/logos/' ~ game.logo)}}"> 
+    {% else %}
+        {%for url in urls %}
+            {% if url.key == game.logo %} 
+                <img src="{{asset(url.url)}}"> 
+
+            {% endif %}
+        {% endfor %}
     {% endif %}
-    {% if not game.logo is empty %} 
-        {{ form_row(form.logo, {'disabled':'disabled'}) }}
-        <img src="{{asset('/uploads/logos/' ~ game.logo.filename)}}">
-        <a href="{{ path('gamedeleteimage', {'wild' : game.id})}}">Delete Image </a>
-    {% endif %}
+    <a href="{{ path('gamedeleteimage', {'wild' : game.id})}}">Delete Image </a>
+{%endif%}
     <input type="submit" value="Edit"
            class="btn btn-default pull-right"/>
     {{ form_end(form) }}

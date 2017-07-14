@@ -16,11 +16,11 @@ class CompanyController extends Controller
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
-        $fileUploader = $this->get('FileUploaderAWS');
-        $client = $fileUploader->delete($company);
+        
+        
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            
             $em->persist($company);
             $em->flush();
 
@@ -33,9 +33,15 @@ class CompanyController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $fileUploader = $this->get('FileUploader');
+        $fileUploader->setTableName('company');
+        $url = $fileUploader->listing();
         $repository = $em->getRepository('MaciejStudyBundle:Company')->findAll();
+      
+        
+        
 
-        return $this->render('MaciejStudyBundle:Company:list.html.twig', array('companies' => $repository));
+        return $this->render('MaciejStudyBundle:Company:list.html.twig', array('companies' => $repository, 'urls' => $url));
     }
 
     public function deleteAction(Request $request)
@@ -56,14 +62,19 @@ class CompanyController extends Controller
         $edit = $request->get('wild');
         $company = $em->getRepository('MaciejStudyBundle:Company')->find($edit);
         $clogo = $company->getClogo();
+        $fileUploader = $this->get('FileUploader');
+        $fileUploader->setTableName('company');
+        $url = $fileUploader->listing();
 
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
 
 
-        if ($form->isSubmitted() && ($form->isValid() OR empty($clogo))) {
-            if ($clogo != $company->getClogo() && !empty($clogo)) {
+        if ($form->isSubmitted() && $form->isValid()) {
+            if (empty($company->getClogo()) && !empty($clogo)){
                 $company->setClogo($clogo);
+            }elseif (!empty($company->getClogo()) && !empty($clogo)){
+                $fileUploader->delete($clogo);
             }
 
             $em->persist($company);
@@ -72,7 +83,10 @@ class CompanyController extends Controller
 
             return $this->redirectToRoute('companylist');
         }
-        return $this->render('MaciejStudyBundle:Company:edit.html.twig', array('form' => $form->createView(), 'company' => $company));
+        return $this->render('MaciejStudyBundle:Company:edit.html.twig', array(
+            'form' => $form->createView(), 
+            'company' => $company,
+            'urls' => $url));
     }
 
     public function deleteimageAction(Request $request)
@@ -83,8 +97,7 @@ class CompanyController extends Controller
         $delete = $request->get('wild');
         $company = $em->getRepository('MaciejStudyBundle:Company')->find($delete);
         $clogo = $company->getClogo();
-        $clogoName = $clogo->getFilename();
-        $fileUploader->delete($clogoName);
+        $fileUploader->delete($clogo);
         $company->setClogo('');
         $em->persist($company);
         $em->flush();

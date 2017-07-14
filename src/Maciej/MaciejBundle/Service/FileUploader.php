@@ -57,6 +57,7 @@ class FileUploader implements UploaderInterface
 
     public function delete($fileName)
     {
+        
         $fileDir = $this->fileDir;
         if ($this->tableName == 'game') {
             $file = new File($fileDir['logo'] . '/' . $fileName);
@@ -70,6 +71,7 @@ class FileUploader implements UploaderInterface
 
         $filedelete = new Filesystem();
         $filedelete->remove($file);
+        
     }
 
     public function download($fileName)

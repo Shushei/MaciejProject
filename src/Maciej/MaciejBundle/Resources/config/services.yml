@@ -10,17 +10,17 @@ services:
     FileUploaderAWS:   
         class: Maciej\MaciejBundle\Service\FileUploaderAWS
         arguments:
-            $s3Client: "@made_amazon.s3_client"            
+            $s3Client: "@amazon.s3_client"            
                 
-    made_amazon.s3_client:
+    amazon.s3_client:
         class: Aws\S3\S3Client
         arguments:
-            $args:
-                version: 'latest'
+            -
+                version: '2006-03-01'
                 region: 'us-east-1'
                 credentials:
-                      key: %aws_s3_key%
-                      secret: %aws_s3_secret%
+                    key: %aws_s3_key%
+                    secret: %aws_s3_secret%
     
     FileHandlingListener:
         class: Maciej\MaciejBundle\EventListener\FileHandlingListener
@@ -29,4 +29,3 @@ services:
             - { name: doctrine.event_listener, event: prePersist}
             - { name: doctrine.event_listener, event: preUpdate}
             - { name: doctrine.event_listener, event: preRemove}
-            - { name: doctrine.event_listener, event: postLoad}
