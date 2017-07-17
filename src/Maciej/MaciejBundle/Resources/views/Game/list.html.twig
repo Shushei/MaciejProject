@@ -4,7 +4,7 @@
 
 {% block title %}List{% endblock %}
 
-    
+
 {% block body %} 
     <table>
         <tr>
@@ -14,36 +14,32 @@
             <td> Date </td>
             <td> Logo </td>
         </tr>
-    {% for game in games %}
-        <tr>
-        <td> {{ game.id}} </td>
-        <td> {{game.title}} </td> 
-        
-            
-        <td> {{game.company.company}} </td>
-       
-      
-        <td> {{game.releaseDate.format('Y-m-d')}} </td>
-        <td>
-            {% if urls is empty %} 
-                        <img src="{{asset('/uploads/logos/' ~ game.logo)}}"> 
-                    {% else %}
-                        {%for url in urls %}
-                            {% if url.key == game.logo %} 
-                                <img src="{{asset(url.url)}}"> 
+        {% for game in games %}
+            <tr>
+                <td> {{ game.id}} </td>
+                <td> {{game.title}} </td>    
+                <td> {{game.company.company}} </td>
+                <td> {{game.releaseDate.format('Y-m-d')}} </td>
+                <td>
+                {% if urls is empty %} 
+                <img src="{{asset('/uploads/logos/' ~ game.logo)}}"> 
+            {% else %}
+                {%for url in urls %}
+                    {% if url.key == game.logo %} 
+                        <img src="{{asset(url.url)}}"> 
 
-                            {% endif %}
-                        {% endfor %}
                     {% endif %}
-        </td>
-        <td>  <a href="{{ path('gamedelete', {'wild' : game.id})}}">Delete</a> </td>
-        <td>  <a href="{{ path('gameedit', {'wild' : game.id})}}">Edit</a> </td>
-        <td>  <a href="{{ path('gameimagelist', {'wild' : game.title})}}">Gallery</a> </td>
+                {% endfor %}
+            {% endif %}
+            </td>
+            <td>  <a href="{{ path('gamedelete', {'wild' : game.id})}}">Delete</a> </td>
+            <td>  <a href="{{ path('gameedit', {'wild' : game.id})}}">Edit</a> </td>
+            <td>  <a href="{{ path('gameimagelist', {'wild' : game.title})}}">Gallery</a> </td>
         </tr>
     {% endfor %}
- 
-    </table>
-   
-   
-    
+
+</table>
+
+
+
 {% endblock %}  

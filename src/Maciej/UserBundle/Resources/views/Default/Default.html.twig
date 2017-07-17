@@ -1,0 +1,36 @@
+{# empty Twig template #}
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Test Application{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('/bundles/maciejstudy/css/style.css') }}">
+
+    </head>
+    <body>
+        <div id="sidebar">
+            {% block sidebar %}
+              
+                   <a href="{{ path('usercompanylist')}}"> <button class="button"> Company List</button></a>
+                   
+               
+            
+                   <a href="{{ path('usergamelist')}}"> <button class="button"> Games List</button></a>
+               
+               
+                       
+            {% block menu %}{% endblock %}
+
+
+        {% endblock %}
+    </div>
+
+    <div id="content">
+    {% block body %}{% endblock %}
+</div>
+</body>
+</html>     

@@ -1,0 +1,64 @@
+{% extends 'MaciejUserBundle:Default:Default.html.twig' %}
+
+{% set MyVal = 0 %}
+
+{% block title %}List{% endblock %}
+
+
+{% block body %} 
+    <table>
+        <tr>
+            <td>Title</td>
+            <td>Company name</td>
+            <td> Date </td>
+            <td> Logo </td>
+        </tr>
+
+        <tr>
+            <td> {{Game.title}} </td>    
+            <td> {{Game.company.company}} </td>
+            <td> {{Game.releaseDate.format('Y-m-d')}} </td>
+            <td>
+                {% if urls is empty %} 
+                    <img src="{{asset('/uploads/logos/' ~ Game.logo)}}"> 
+                {% else %}
+                    {%for url in urls %}
+                        {% if url.key == Game.logo %} 
+                            <img src="{{asset(url.url)}}"> 
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </td>
+        </tr>
+
+    </table>
+    Game Gallery
+    <table>
+        
+        <tr>
+            {%for image in gameimages %}
+                {% if urls is empty %} 
+                <td> <img src="{{asset('/uploads/gameimages/' ~ image.gameimage)}}"> </td>
+                {% else %}
+                    {%for url in urls %}
+                        {% if url.key == Game.logo %} 
+                            <img src="{{asset(url.url)}}"> 
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% set MyVal = MyVal + 1 %}
+                {% if MyVal == 6 %}
+                    {% set MyVal = 0 %}
+                </tr>
+                <tr>
+                {%endif%}
+            {%endfor%}
+        </tr>
+
+    </table>
+
+
+
+
+
+{% endblock %} 

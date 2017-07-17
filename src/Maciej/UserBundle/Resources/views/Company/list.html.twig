@@ -1,0 +1,45 @@
+{% extends 'MaciejUserBundle:Default:Default.html.twig' %}
+
+{% set active = 'CompanyList'%}
+
+{% block title %}List{% endblock %}
+
+
+{% block body %} 
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Company Name</td>
+            <td>Owner Name</td>
+            <td>Owner Surname</td>
+            <td>Founding Date </td>
+        </tr>
+        {% for company in companies %}
+            <tr>
+                <td> {{company.id}} </td>
+                <td> {{company.company}} </td> 
+                <td> {{company.ownername}} </td>
+                <td> {{company.ownersurname}} </td>
+                <td> {{company.founded.format('Y-m-d')}} </td>
+                <td> 
+                    {% if urls is empty %} 
+                        <img src="{{asset('/uploads/companies/' ~ company.clogo)}}"> 
+                    {% else %}
+                        {%for url in urls %}
+                            {% if url.key == company.clogo %} 
+                                <img src="{{asset(url.url)}}"> 
+
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </td>
+                <td>  <a href="{{ path('usercompanysingle', {'name' : company.company})}}">View Company</a> </td>
+                
+            </tr>
+        {% endfor %}
+
+    </table>
+
+
+
+{% endblock %}  {# empty Twig template #}
