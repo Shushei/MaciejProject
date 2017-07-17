@@ -3,53 +3,56 @@ maciej_study_homepage:
     defaults: { _controller: MaciejStudyBundle:Default:index }
     
 companyform:
-    path:   /company/form
+    path:   admin/company/form
     defaults: { _controller: MaciejStudyBundle:Company:form }
     
 companylist:
-    path:  /company/list
+    path:  admin/company/list
     defaults: { _controller: MaciejStudyBundle:Company:list }
     
 companydelete:
-    path: /company/delete/{wild}
+    path: admin/company/delete/{wild}
     defaults: {_controller: MaciejStudyBundle:Company:delete}
     
 companyedit:
-    path: /company/edit/{wild}
+    path: admin/company/edit/{wild}
     defaults: {_controller: MaciejStudyBundle:Company:edit}
     
 companydeleteimage:
-    path: /company/imagedelete/{wild}
+    path: admin/company/imagedelete/{wild}
     defaults: { _controller: MaciejStudyBundle:Company:deleteimage}
     
 gameform:
-    path:   /game/form
+    path:   admin/game/form
     defaults: { _controller: MaciejStudyBundle:Game:form }
     
 gamelist:
-    path:  /game/list
+    path:  admin/game/list
     defaults: { _controller: MaciejStudyBundle:Game:list }
     
 gamedelete:
-    path: /game/delete/{wild}
+    path: admin/game/delete/{wild}
     defaults: {_controller: MaciejStudyBundle:Game:delete}
     
 gameedit:
-    path: /game/edit/{wild}
+    path: admin/game/edit/{wild}
     defaults: {_controller: MaciejStudyBundle:Game:edit}
     
 gamedeleteimage:
-    path: /game/imagedelete/{wild}
+    path: admin/game/imagedelete/{wild}
     defaults: { _controller: MaciejStudyBundle:Game:deleteimage}
     
 gameimageform:
-    path: /gameimage/form
+    path: admin/gameimage/form
     defaults: {_controller : MaciejStudyBundle:GameImage:form}
     
 gameimagelist:
-    path:  /gameimage/list/{wild}
+    path:  admin/gameimage/list/{wild}
     defaults: { _controller: MaciejStudyBundle:GameImage:list }
     
 gameimagedelete:
-    path: /gameimage/delete/{wild}
+    path: admin/gameimage/delete/{wild}
     defaults: { _controller: MaciejStudyBundle:GameImage:delete}
+    
+logout:
+    path: /logout

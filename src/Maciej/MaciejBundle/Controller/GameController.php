@@ -6,12 +6,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Maciej\MaciejBundle\Form\GameType;
 use Maciej\MaciejBundle\Entity\Game;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 
 class GameController extends Controller
 {
 
     public function formAction(Request $request)
-    {
+    {   
+        $logger = $this->get('logger');
+        
+        
         $game = new Game();
         $form = $this->createForm(GameType::class, $game);
         $form->handleRequest($request);
@@ -21,7 +27,7 @@ class GameController extends Controller
 
             $em->persist($game);
             $em->flush();
-
+            $logger->info('Added '.$game->getTitle().' to gamelist');
 
             return $this->redirectToRoute('gamelist');
         }
@@ -49,7 +55,9 @@ class GameController extends Controller
         $game = $em->getRepository('MaciejStudyBundle:Game')->find($delete);
         $em->remove($game);
         $em->flush();
-
+        $logger = $this->get('logger');
+        $logger->info('Deleted '.$game->getTitle());
+        
         return $this->redirecttoRoute('gamelist');
     }
 

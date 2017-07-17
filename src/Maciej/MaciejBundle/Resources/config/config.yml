@@ -2,3 +2,13 @@ parameters:
     logo_directory:         '%kernel.project_dir%/web/uploads/logos'
     company_directory:      '%kernel.project_dir%/web/uploads/companies'
     gameimage_directory:    '%kernel.project_dir%/web/uploads/gameimages'
+    
+monolog:
+    
+    handlers:
+        game_logger:
+            type:       stream
+            path:       '%kernel.project_dir%/var/logs/game.log'
+            level:      INFO
+            
+            
