@@ -17,3 +17,7 @@ usercompanysingle:
     path: /company/{name}
     defaults: { _controller: MaciejUserBundle:Company:single }
     
+login:
+    path: /login
+    defaults: { _controller: MaciejUserBundle:Security:login}
+    
