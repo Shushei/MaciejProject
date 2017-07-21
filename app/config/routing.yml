@@ -1,6 +1,6 @@
 maciej_api:
     resource: "@MaciejApiBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /api
 
 maciej_user:
     resource: "@MaciejUserBundle/Resources/config/routing.yml"

@@ -3,8 +3,9 @@
 namespace Maciej\ApiBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 class CompanyController extends Controller
 {
@@ -24,16 +25,16 @@ class CompanyController extends Controller
             );
             $data['companies'][] = $temp;
         }
-        $response = new Response(json_encode($data), 200);
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
+       
+        
+        return new JsonResponse($data);
     }
 
     public function singleAction(Request $request)
     {
-        $wild = $request->get('wild');
+        $id = $request->get('id');
         $em = $this->getDoctrine()->getManager();
-        $company = $em->getRepository('MaciejStudyBundle:Company')->find($wild);
+        $company = $em->getRepository('MaciejStudyBundle:Company')->find($id);
         $data = array(
             'company' => $company->getCompany(),
             'ownername' => $company->getOwnername(),
@@ -41,9 +42,7 @@ class CompanyController extends Controller
             'founded' => $company->getFounded(),
             'clogo' => $company->getClogo()
         );
-        $response = new Response(json_encode($data), 200);
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
+         return new JsonResponse($data);
     }
 
 }
