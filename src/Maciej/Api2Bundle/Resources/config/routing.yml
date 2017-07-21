@@ -2,12 +2,22 @@ maciej_api2_homepage:
     path:     /
     defaults: { _controller: MaciejApi2Bundle:Default:index }
     
-companylist:
+api2companylist:
     path:   /company/list
     defaults: { _controller: MaciejApi2Bundle:Company:get }
     methods: GET
     
-companysingle:
+api2companysingle:
     path:   /company/single/{id}
     defaults: { _controller: MaciejApi2Bundle:Company:id }
+    methods: GET
+
+api2gamelist:
+    path:   /game/list
+    defaults: { _controller: MaciejApi2Bundle:Game:get }
+    methods: GET
+    
+api2gamesingle:
+    path:   /game/single/{id}
+    defaults: { _controller: MaciejApi2Bundle:Game:id }
     methods: GET

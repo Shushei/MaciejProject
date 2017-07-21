@@ -70,10 +70,11 @@ swiftmailer:
     spool: { type: memory }
 
 fos_rest:
-    body_listener: true
+    body_listener: 
     format_listener:
         rules:
-            - { path: '^/', priorities: ['json'], fallback_format: json, prefer_extension: false}
+            - { path: '^/api2', priorities: ['json'], fallback_format: json, prefer_extension: false}
+            - { path: '^/', }
     param_fetcher_listener: true
     view:
         view_response_listener: 'force'

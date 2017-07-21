@@ -1,5 +1,4 @@
 <?php
-
 namespace Maciej\Api2Bundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -9,26 +8,24 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class CompanyController extends FOSRestController
+class GameController extends FOSRestController
 {
     public function getAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $companies = $em->getRepository('MaciejStudyBundle:Company')->findAll();
-        if ($companies == null){
+        $games = $em->getRepository('MaciejStudyBundle:Game')->findAll();
+        if ($games == null){
             return new View("There exists no companies", Response::HTTP_NOT_FOUND);
         }
-        return $companies;
+        return $games;
     }
     public function idAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $company = $em->getRepository('MaciejStudyBundle:Company')->find($id);
-        if ($company == null){
+        $game = $em->getRepository('MaciejStudyBundle:Game')->find($id);
+        if ($game == null){
             return new View("There exists no companies", Response::HTTP_NOT_FOUND);
         }
-        return $company;
+        return $game;
     }
 }
-
-
