@@ -1,0 +1,4 @@
+services:
+#    maciej_api.example:
+#        class: Maciej\ApiBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
