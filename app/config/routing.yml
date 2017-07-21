@@ -1,3 +1,7 @@
+maciej_user:
+    resource: "@MaciejUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 maciej_study:
     resource: "@MaciejStudyBundle/Resources/config/routing.yml"
     prefix:   /

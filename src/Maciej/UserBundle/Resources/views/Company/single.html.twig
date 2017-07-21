@@ -1,0 +1,70 @@
+{% extends 'MaciejUserBundle:Default:Default.html.twig' %}
+
+{% set active = 'CompanyList'%}
+
+{% block title %}List{% endblock %}
+
+
+{% block body %} 
+    <table>
+        <tr>
+            <td>Company Name</td>
+            <td>Owner Name</td>
+            <td>Owner Surname</td>
+            <td>Founding Date </td>
+        </tr>
+        <tr>
+            <td> {{company.company}} </td> 
+            <td> {{company.ownername}} </td>
+            <td> {{company.ownersurname}} </td>
+            <td> {{company.founded.format('Y-m-d')}} </td>
+            <td> 
+                {% if urls is empty %} 
+                    <img src="{{asset('/uploads/companies/' ~ company.clogo)}}"> 
+                {% else %}
+                    {%for url in urls %}
+                        {% if url.key == company.clogo %} 
+                            <img src="{{asset(url.url)}}"> 
+
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+            Company released games!
+    <table>
+         <tr>
+            <td>Title</td>
+            <td>Company name</td>
+            <td> Date </td>
+            <td> Logo </td>
+        </tr>
+        {% for game in games %}
+            {%if game.company == company %}
+                <tr>
+                    <td> {{game.title}} </td>    
+                    <td> {{game.company.company}} </td>
+                    <td> {{game.releaseDate.format('Y-m-d')}} </td>
+                    <td>
+                        {% if urls is empty %} 
+                            <img src="{{asset('/uploads/logos/' ~ game.logo)}}"> 
+                        {% else %}
+                            {%for url in urls %}
+                                {% if url.key == game.logo %} 
+                                    <img src="{{asset(url.url)}}"> 
+
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>  <a href="{{ path('gamedelete', {'wild' : game.title})}}">Game View</a> </td>
+                </tr>
+            {%endif%}
+        {%endfor%}
+
+
+
+
+
+    {% endblock %} 

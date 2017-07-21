@@ -1,0 +1,23 @@
+
+   
+usergamelist:
+    path: /game/list
+    defaults: { _controller: MaciejUserBundle:Game:list }
+    
+usergamesingle:
+    path: /game/{name}
+    defaults: { _controller: MaciejUserBundle:Game:single }
+    
+   
+usercompanylist:
+    path: /company/list
+    defaults: { _controller: MaciejUserBundle:Company:list }
+    
+usercompanysingle:
+    path: /company/{name}
+    defaults: { _controller: MaciejUserBundle:Company:single }
+    
+login:
+    path: /login
+    defaults: { _controller: MaciejUserBundle:Security:login}
+    

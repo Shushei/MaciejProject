@@ -22,7 +22,7 @@ class Company
      */
     private $id;
 
-   /**
+    /**
      * @ORM\OneToMany(targetEntity="Game", mappedBy="company")
      * 
      */
@@ -31,7 +31,6 @@ class Company
     public function __construct()
     {
         $this->games = new ArrayCollection();
-        
     }
 
     /**
@@ -58,25 +57,25 @@ class Company
      * @Assert\NotBlank()
      */
     protected $ownersurname;
-    
+
     /**
- *@ORM\Column(type="string", nullable = true)
- * 
- * @Assert\File
- * 
- */
-   private $clogo;
-   
-   public function getClogo()
-   {
-       return $this->clogo;
-       
-   }
-   public function setClogo($clogo)
-   {
-       $this->clogo = $clogo;
-       return $this;
-   }
+     * @ORM\Column(type="string", nullable = true)
+     * 
+     * @Assert\File
+     * 
+     */
+    private $clogo;
+
+    public function getClogo()
+    {
+        return $this->clogo;
+    }
+
+    public function setClogo($clogo)
+    {
+        $this->clogo = $clogo;
+        return $this;
+    }
 
     public function getId()
     {
@@ -123,5 +122,38 @@ class Company
         return $this->ownersurname = $ownersurname;
     }
 
+    /**
+     * Add game
+     *
+     * @param \Maciej\MaciejBundle\Entity\Game $game
+     *
+     * @return games
+     */
+    public function addGame(\Maciej\MaciejBundle\Entity\Game $game)
+    {
+        $this->games[] = $game;
+
+        return $this;
+    }
+
+    /**
+     * Remove Game
+     *
+     * @param \Maciej\MaciejBundle\Entity\Game $Game
+     */
+    public function removeGame(\Maciej\MaciejBundle\Entity\Game $Game)
+    {
+        $this->games->removeElement($game);
+    }
+
+    /**
+     * Get Games
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getGames()
+    {
+        return $this->games;
+    }
 
 }
