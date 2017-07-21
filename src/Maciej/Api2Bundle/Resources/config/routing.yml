@@ -1,0 +1,13 @@
+maciej_api2_homepage:
+    path:     /
+    defaults: { _controller: MaciejApi2Bundle:Default:index }
+    
+companylist:
+    path:   /company/list
+    defaults: { _controller: MaciejApi2Bundle:Company:get }
+    methods: GET
+    
+companysingle:
+    path:   /company/single/{id}
+    defaults: { _controller: MaciejApi2Bundle:Company:id }
+    methods: GET

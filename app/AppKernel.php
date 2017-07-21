@@ -19,6 +19,9 @@ class AppKernel extends Kernel
             new Maciej\MaciejBundle\MaciejStudyBundle(),
             new Maciej\UserBundle\MaciejUserBundle(),
             new Maciej\ApiBundle\MaciejApiBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new \JMS\SerializerBundle\JMSSerializerBundle(),
+            new Maciej\Api2Bundle\MaciejApi2Bundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
