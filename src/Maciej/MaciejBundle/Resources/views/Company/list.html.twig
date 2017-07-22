@@ -33,13 +33,26 @@
                         {% endfor %}
                     {% endif %}
                 </td>
-                <td>  <a href="{{ path('companydelete', {'wild' : company.id})}}">Delete</a> </td>
+                <td> 
+
+
+
+                    <a id={{company.id}} onclick="DeleteConfirm(this)" href = "{{ path('companydelete', {'wild' : company.id})}}"> Delete </a> </td>
+
                 <td>  <a href="{{ path('companyedit', {'wild' : company.id})}}">Edit</a> </td>
             </tr>
         {% endfor %}
 
     </table>
 
-
+    <script>
+function DeleteConfirm(elem)
+{
+    var r = confirm("Do You want to delete record?");
+if (r == false){
+    document.getElementById(elem.id).href = '{{ path('companylist')}}'
+}
+}
+    </script>
 
 {% endblock %}  {# empty Twig template #}
