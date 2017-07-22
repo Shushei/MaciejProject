@@ -28,7 +28,7 @@ class Game
 
     /**
      * @ORM\OneToMany(targetEntity="GameImage", mappedBy="title")
-     * @Groups({"images"})
+     * @Groups({"list"})
      */
     private $images;
 
@@ -40,7 +40,7 @@ class Game
     /**
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="games")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
-     * @Groups({"company"})
+     * @Groups({"list"})
      */
     protected $company;
 

@@ -25,7 +25,7 @@ class Company
 
     /**
      * @ORM\OneToMany(targetEntity="Game", mappedBy="company")
-     * @Groups({"games"})
+     * @Groups({"list"})
      */
     private $games;
 

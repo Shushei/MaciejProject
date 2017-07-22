@@ -3,6 +3,7 @@ namespace Maciej\MaciejBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -27,7 +28,7 @@ class GameImage
     /**
      * @ORM\Column(type="string")
      * @Assert\File
-     * 
+     * @Groups({"images"})
      */
     private $gameimage;
     
