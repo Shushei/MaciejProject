@@ -44,25 +44,46 @@ class GameController extends Controller
         $em = $this->getDoctrine()->getManager();
         $fileUploader = $this->get('FileUploader');
         $urls = $fileUploader->listing();
-        $repository = $em->getRepository('MaciejStudyBundle:Game');
         $companies = $em->getRepository('MaciejStudyBundle:Company')->findAll();
         $searchCompany = $request->get('searchCompany');
         $searchTitle = $request->get('searchTitle');
-        if (!empty($searchTitle)){
-        $query = $em->createQuery("SELECT g, c  FROM MaciejStudyBundle:Game g JOIN g.company c
-            WHERE g.title = :searchTitle AND 
-            c.company  = :searchCompany")
-                ->setParameter('searchTitle', $searchTitle)
-                ->setParameter('searchCompany', $searchCompany);
-        }else{
+        $searchMinDate = $request->get('preDate');
+        $searchMaxDate = $request->get('postDate');
+        if (!empty($searchTitle) && (empty($searchMinDate) OR empty($searchMaxDate))) {
             $query = $em->createQuery("SELECT g, c  FROM MaciejStudyBundle:Game g JOIN g.company c
-            WHERE c.company  = :searchCompany")
-                ->setParameter('searchCompany', $searchCompany);
+            WHERE 
+            g.title = :searchTitle AND 
+            c.company  = :searchCompany")
+                    ->setParameter('searchTitle', $searchTitle)
+                    ->setParameter('searchCompany', $searchCompany);
+        } elseif (!empty($searchTitle) && !empty($searchMinDate) && !empty($searchMaxDate)) {
+            $query = $em->createQuery("SELECT g, c  FROM MaciejStudyBundle:Game g JOIN g.company c
+            WHERE 
+            g.title = :searchTitle AND
+            c.company  = :searchCompany AND
+            g.releaseDate BETWEEN :minDate AND :maxDate")
+                    ->setParameter('minDate', $searchMinDate)
+                    ->setParameter('maxDate', $searchMaxDate)
+                    ->setParameter('searchTitle', $searchTitle)
+                    ->setParameter('searchCompany', $searchCompany);
+        } elseif (!empty($searchMinDate) && !empty($searchMaxDate)) {
+            $query = $em->createQuery("SELECT g, c  FROM MaciejStudyBundle:Game g JOIN g.company c
+            WHERE 
+            c.company  = :searchCompany AND
+            g.releaseDate BETWEEN :minDate AND :maxDate")
+                    ->setParameter('minDate', $searchMinDate)
+                    ->setParameter('maxDate', $searchMaxDate)
+                    ->setParameter('searchCompany', $searchCompany);
+        } else {
+            $query = $em->createQuery("SELECT g, c  FROM MaciejStudyBundle:Game g JOIN g.company c
+            WHERE 
+            c.company  = :searchCompany")
+                    ->setParameter('searchCompany', $searchCompany);
         }
-        
-       
-            $games = $query->getResult();
-        
+
+
+        $games = $query->getResult();
+
 
         return $this->render('MaciejUserBundle:Game:list.html.twig', array(
                     'urls' => $urls,
