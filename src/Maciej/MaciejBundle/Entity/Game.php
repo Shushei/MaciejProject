@@ -6,9 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\Groups;
+use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
 /**
  * @ORM\Entity
  * @ORM\Table(name="game")
+ * @InheritanceType("JOINED")
+ * @DiscriminatorColumn(name="discr", type="string")
+ * @DiscriminatorMap({"game" = "Game", "company" = "Company"})
  */
 class Game
 {
