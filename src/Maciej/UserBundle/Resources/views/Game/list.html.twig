@@ -6,7 +6,6 @@
 
 
 {% block body %} 
-    {{dump(games)}}
     <form action="{{ path('usergamesearch')}}" method="post">
     <table>
         <tr>
@@ -57,7 +56,12 @@
         {%endfor%}
 
     </table>
-
+        {% set p = 1 %}
+        {%for page in pages %}
+            <a href="{{ path('usergamesearch', {'pagee' : p, 'url' : criteria})}}">{{p}}</a>
+            {%set p = p+ 1 %}
+{%endfor%}
+{{dump(criteria)}}
 
 
 {% endblock %}  {# empty Twig template #}

@@ -10,28 +10,25 @@ class GameRepository extends EntityRepository
     public function findByCriteria($request)
     {
         $em = $this->getEntityManager();
-        $title = $request->get('title');
-        $company = $request->get('company');
-        $minDate = $request->get('minDate');
-        $maxDate = $request->get('maxDate');
+        $array = $request->get('url');
 
         $qb = $em->createQueryBuilder()
                 ->select('g')
                 ->from('MaciejStudyBundle:Game', 'g')
                 ->join('g.company', 'c');
 
-        if (!empty($title)) {
+        if (!empty($array['title'])) {
             $qb->andWhere('g.title = :title')
-                    ->setParameter('title', $title);
+                    ->setParameter('title', $array['title']);
         }
-        if (!empty($company)) {
+        if (!empty($array['company'])) {
             $qb->andWhere('c.company = :company')
-                    ->setParameter('company', $company);
+                    ->setParameter('company', $array['company']);
         }
-        if (!empty($minDate) && !empty($maxDate)) {
+        if (!empty($array['minDate']) && !empty($array['maxDate'])) {
             $qb->andWhere('g.releaseDate BETWEEN :minDate AND :maxDate')
-                    ->setParameter('minDate', $minDate)
-                    ->setParameter('maxDate', $maxDate);
+                    ->setParameter('minDate', $array['minDate'])
+                    ->setParameter('maxDate', $array['maxDate']);
         }
         $query = $qb->getQuery();
         $result = $query->getResult();
