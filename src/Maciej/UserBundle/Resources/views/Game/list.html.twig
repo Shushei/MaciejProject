@@ -7,12 +7,13 @@
 
 {% block body %} 
     {{dump(games)}}
-    <form action="{{ path('usergamesearch')}}">
+    <form action="{{ path('usergamesearch')}}" method="post">
     <table>
         <tr>
             <td> <input name="searchTitle" type="text"> </td>
             <td>
                 <select name="searchCompany">
+                    <option value=""></option>
                     {% for company in companies %}
                         <option  value ="{{company.company}}">{{company.company}}</option>
                     {%endfor%}

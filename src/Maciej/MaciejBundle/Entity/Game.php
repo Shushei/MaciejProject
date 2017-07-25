@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Maciej\UserBundle\Repository\GameRepository")
  * @ORM\Table(name="game")
  * @InheritanceType("JOINED")
  * @DiscriminatorColumn(name="discr", type="string")
