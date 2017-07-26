@@ -25,16 +25,16 @@
         <td> Logo </td>
     </tr>
     {% for game in games %}
-        <tr id="{{game.id}}">
-            <td> {{game.title}} </td>    
-            <td> {{game.company.company}} </td>
-            <td> {{game.releaseDate.format('Y-m-d')}} </td>
+        <tr id="{{game.getId()}}">
+            <td> {{game.getTitle()}} </td>    
+            <td> {{game.getCompany().company}} </td>
+            <td> {{game.getReleaseDate().format('Y-m-d')}} </td>
             <td>
                 {% if urls is empty %} 
-                    <img src="{{asset('/uploads/logos/' ~ game.logo)}}"> 
+                    <img src="{{asset('/uploads/logos/' ~ game.getLogo())}}"> 
                 {% else %}
                     {%for url in urls %}
-                        {% if url.key == game.logo %} 
+                        {% if url.key == game.getLogo() %} 
                             <img src="{{asset(url.url)}}"> 
 
                         {% endif %}
@@ -42,7 +42,7 @@
                 {% endif %}
             </td>
 
-            <td>  <a href="{{ path('usergamesingle', {'id' : game.id})}}">View Game</a> </td>
+            <td>  <a href="{{ path('usergamesingle', {'id' : game.getId()})}}">View Game</a> </td>
 
         </tr>
     {%endfor%}
