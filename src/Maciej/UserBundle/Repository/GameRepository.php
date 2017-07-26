@@ -24,7 +24,7 @@ class GameRepository extends EntityRepository
         }
         if (!empty($array['company'])) {
             $qb->join('g.company', 'c')
-                    ->andWhere('c.company = :company')
+                    ->andWhere('c.id = :company')
                     ->setParameter('company', $array['company']);
         }
         if (!empty($array['minDate']) Or !empty($array['maxDate'])) {
@@ -43,7 +43,8 @@ class GameRepository extends EntityRepository
 
         $query = $qb->getQuery();
         $result['result'] = $query->getResult();
-        $result['count'] = $qb->select('COUNT(g)')
+        $result['count'] = $qb->Select('COUNT(g)')
+                ->setFirstResult(0)
                 ->getQuery()
                 ->getSingleScalarResult();
 

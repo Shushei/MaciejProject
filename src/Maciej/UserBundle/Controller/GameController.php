@@ -4,12 +4,14 @@ namespace Maciej\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Maciej\UserBundle\Form\SearchGameType;
 
 class GameController extends Controller
 {
 
     public function listAction(Request $request)
-    {
+    {   $formData = array();
+        $form = $this->createForm(SearchGameType::class, $formData);
         $em = $this->getDoctrine()->getManager();
         $fileUploader = $this->get('FileUploader');
         $paging = $this->get('Paging');
@@ -19,17 +21,20 @@ class GameController extends Controller
         $page = $request->get('pagee');
         $gamesFiltered = $em->getRepository('MaciejStudyBundle:Game')->findByCriteria($url, $page);
         $companies = $em->getRepository('MaciejStudyBundle:Company')->findAll();
-       $pages = $paging->paging($gamesFiltered['count']);
-        
-     
-            return $this->render('MaciejUserBundle:Game:list.html.twig', array(
-                        'urls' => $urls,
-                        'games' => $gamesFiltered['result'],
-                        'companies' => $companies,
-                        'pages' => $pages,
-                        'criteria' => $url
-            ));
-       
+        $pages = $paging->paging($gamesFiltered['count']);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            return $this->redirectToRoute('usergamesearch', ['request' => $request], 307);
+        }
+
+        return $this->render('MaciejUserBundle:Game:list.html.twig', array(
+                    'urls' => $urls,
+                    'games' => $gamesFiltered['result'],
+                    'companies' => $companies,
+                    'pages' => $pages,
+                    'criteria' => $url,
+                    'form' => $form->createView()
+        ));
     }
 
     public function singleAction(Request $request)
@@ -50,23 +55,20 @@ class GameController extends Controller
 
     public function searchAction(Request $request)
     {
-        $title = $request->get('searchTitle');
-        $company = $request->get('searchCompany');
-        $minDate = $request->get('preDate');
-        $maxDate = $request->get('postDate');
+        $searchData = $request->get('search_game');
         $pagee = $request->get('pagee');
         $url = $request->get('url');
-        if (!empty($title)) {
-            $url['title'] = $title;
+        if (!empty($searchData['searchTitle'])) {
+            $url['title'] = $searchData['searchTitle'];
         }
-        if (!empty($company)) {
-            $url['company'] = $company;
+        if (!empty($searchData['searchCompany'])) {
+            $url['company'] = $searchData['searchCompany'];
         }
-        if (!empty($minDate) ) {
-            $url['minDate'] = $minDate;
+        if (!empty($searchData['minDate'])) {
+            $url['minDate'] = $searchData['minDate'];
         }
-        if (!empty($maxDate) ) {
-            $url['maxDate'] = $maxDate;
+        if (!empty($searchData['maxDate'])) {
+            $url['maxDate'] = $searchData['maxDate'];
         }
 
         if (!empty($url)) {

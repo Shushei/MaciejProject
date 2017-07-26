@@ -6,7 +6,7 @@ usergamelist:
     
 usergamesearch:
     path: /game/search
-    defaults: { _controller: MaciejUserBundle:Game:search, page: 1 }
+    defaults: { _controller: MaciejUserBundle:Game:search }
   
 usergamesingle:
     path: /game/{id}
