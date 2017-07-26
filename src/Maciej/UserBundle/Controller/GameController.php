@@ -12,28 +12,21 @@ class GameController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $fileUploader = $this->get('FileUploader');
+        $paging = $this->get('Paging');
         $urls = $fileUploader->listing();
-        $repository = $em->getRepository('MaciejStudyBundle:Game')->findByCriteria($request);
-        $companies = $em->getRepository('MaciejStudyBundle:Company')->findAll();
-        $page = $request->get('pagee');
         $url = '';
         $url = $request->get('url');
-        $count = 0;
-        $pagecount = 1;
-        foreach ($repository as $game) {
-            $count ++;
-            $games[$pagecount][] = $game;
-            if ($count / 3 == 1) {
-                $count = 0;
-                $pagecount = $pagecount + 1;
-            }
-        }
+        $page = $request->get('pagee');
+        $gamesFiltered = $em->getRepository('MaciejStudyBundle:Game')->findByCriteria($url, $page);
+        $companies = $em->getRepository('MaciejStudyBundle:Company')->findAll();
+       $pages = $paging->paging($gamesFiltered['count']);
+        
      
             return $this->render('MaciejUserBundle:Game:list.html.twig', array(
                         'urls' => $urls,
-                        'games' => $games[$page],
+                        'games' => $gamesFiltered['result'],
                         'companies' => $companies,
-                        'pages' => $games,
+                        'pages' => $pages,
                         'criteria' => $url
             ));
        
@@ -44,8 +37,8 @@ class GameController extends Controller
         $em = $this->getDoctrine()->getManager();
         $fileUploader = $this->get('FileUploader');
         $urls = $fileUploader->listing();
-        $name = $request->get('name');
-        $Game = $em->getRepository('MaciejStudyBundle:Game')->findOneByTitle($name);
+        $id = $request->get('id');
+        $Game = $em->getRepository('MaciejStudyBundle:Game')->find($id);
         $gamesimages = $em->getRepository('MaciejStudyBundle:GameImage')->findAll();
 
         return $this->render('MaciejUserBundle:Game:single.html.twig', array(
@@ -69,8 +62,10 @@ class GameController extends Controller
         if (!empty($company)) {
             $url['company'] = $company;
         }
-        if (!empty($minDate) && !empty(maxDate)) {
+        if (!empty($minDate) ) {
             $url['minDate'] = $minDate;
+        }
+        if (!empty($maxDate) ) {
             $url['maxDate'] = $maxDate;
         }
 

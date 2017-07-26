@@ -20,7 +20,7 @@
             {% endif %}
         {% endfor %}
     {% endif %}
-    <a href="{{ path('companydeleteimage', {'wild' : company.id})}}">Delete Image </a>
+    <a href="{{ path('companydeleteimage', {'id' : company.id})}}">Delete Image </a>
 {%endif%}
     <input type="submit" value="Edit"
            class="btn btn-default pull-right"/>

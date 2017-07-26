@@ -1,10 +1,7 @@
 {% extends 'MaciejStudyBundle:Default:Default.html.twig' %}
 
 {% set active = 'CompanyList'%}
-
 {% block title %}List{% endblock %}
-
-
 {% block body %} 
     <table>
         <tr>
@@ -33,26 +30,17 @@
                         {% endfor %}
                     {% endif %}
                 </td>
-                <td> 
-
-
-
-                    <a id={{company.id}} onclick ="DeleteConfirm(this)" href = "{{ path('companydelete', {'wild' : company.id})}}"> Delete </a> </td>
-
-                <td>  <a href="{{ path('companyedit', {'wild' : company.id})}}">Edit</a> </td>
+                <td> <a class ="company" id="company{{company.id}}"  href = "{{ path('companydelete', {'id' : company.id})}}"> Delete </a> </td>
+                <td>  <a href="{{ path('companyedit', {'id' : company.id})}}">Edit</a> </td>
             </tr>
         {% endfor %}
-
     </table>
-
-    <script>
-function DeleteConfirm(elem)
-{
-    var r = confirm("Do You want to delete record?");
-if (r == false){
-    document.getElementById(elem.id).href = '{{ path('companylist')}}'
-}
-}
-    </script>
+    <script type="text/javascript">
+        $(".company").click(function () {
+            if (!confirm("Do You want to delete record?")) {
+                return false
+            }
+        });
+     </script>
 
 {% endblock %}  {# empty Twig template #}

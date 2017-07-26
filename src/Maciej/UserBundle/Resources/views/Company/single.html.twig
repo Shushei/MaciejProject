@@ -58,7 +58,7 @@
                             {% endfor %}
                         {% endif %}
                     </td>
-                    <td>  <a href="{{ path('gamedelete', {'wild' : game.title})}}">Game View</a> </td>
+                    <td>  <a href="{{ path('usergamesingle', {'id' : game.id})}}">Game View</a> </td>
                 </tr>
             {%endif%}
         {%endfor%}

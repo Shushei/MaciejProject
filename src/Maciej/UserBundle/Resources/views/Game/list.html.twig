@@ -7,23 +7,23 @@
 
 {% block body %} 
     <form action="{{ path('usergamesearch')}}" method="post">
-    <table>
-        <tr>
-            <td> <input name="searchTitle" type="text"> </td>
-            <td>
-                <select name="searchCompany">
-                    <option value=""></option>
-                    {% for company in companies %}
-                        <option  value ="{{company.company}}">{{company.company}}</option>
-                    {%endfor%}
-            </td>
-             <td> <input name="preDate" type="date" > </td>
-             <td> <input name="postDate" type="date"> </td>
-            <td> <input type="submit" value="Search" >
-        </tr>
-    </table>
+        <table>
+            <tr>
+                <td> <input name="searchTitle" type="text"> </td>
+                <td>
+                    <select name="searchCompany">
+                        <option value=""></option>
+                        {% for company in companies %}
+                            <option  value ="{{company.company}}">{{company.company}}</option>
+                        {%endfor%}
+                </td>
+                <td> <input name="preDate" type="date" > </td>
+                <td> <input name="postDate" type="date"> </td>
+                <td> <input type="submit" value="Search" >
+            </tr>
+        </table>
     </form>
-           
+
     <table>
 
         <tr>
@@ -50,18 +50,18 @@
                     {% endif %}
                 </td>
 
-                <td>  <a href="{{ path('usergamesingle', {'name' : game.title})}}">View Game</a> </td>
+                <td>  <a href="{{ path('usergamesingle', {'id' : game.id})}}">View Game</a> </td>
 
             </tr>
         {%endfor%}
 
     </table>
-        {% set p = 1 %}
-        {%for page in pages %}
-            <a href="{{ path('usergamesearch', {'pagee' : p, 'url' : criteria})}}">{{p}}</a>
-            {%set p = p+ 1 %}
-{%endfor%}
-{{dump(criteria)}}
+
+    {%for p in 1..pages %}
+        <a href="{{ path('usergamesearch', {'pagee' : p, 'url' : criteria})}}">{{p}}</a>
+
+    {%endfor%}
+    {{dump(criteria)}}
 
 
 {% endblock %}  {# empty Twig template #}

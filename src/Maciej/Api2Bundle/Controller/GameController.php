@@ -10,7 +10,7 @@ use JMS\Serializer\SerializationContext;
 class GameController extends FOSRestController
 {
 
-    public function getAction()
+    public function getlistAction()
     {
         $context = SerializationContext::create()->setGroups(array(
             'Default'
@@ -25,7 +25,7 @@ class GameController extends FOSRestController
         return $gamesview;
     }
 
-    public function idAction($id)
+    public function getGameAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $game = $em->getRepository('MaciejStudyBundle:Game')->find($id);

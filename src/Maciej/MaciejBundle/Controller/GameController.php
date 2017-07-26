@@ -51,7 +51,7 @@ class GameController extends Controller
     public function deleteAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $delete = $request->get('wild');
+        $delete = $request->get('id');
         $game = $em->getRepository('MaciejStudyBundle:Game')->find($delete);
         $em->remove($game);
         $em->flush();
@@ -65,7 +65,7 @@ class GameController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $edit = $request->get('wild');
+        $edit = $request->get('id');
         $game = $em->getRepository('MaciejStudyBundle:Game')->find($edit);
         $logo = $game->getLogo();
         $fileUploader = $this->get('FileUploader');
@@ -100,7 +100,7 @@ class GameController extends Controller
         $em = $this->getDoctrine()->getManager();
         $fileUploader = $this->get('FileUploader');
         $fileUploader->setTableName('game');
-        $delete = $request->get('wild');
+        $delete = $request->get('id');
         $game = $em->getRepository('MaciejStudyBundle:Game')->find($delete);
         $logo = $game->getLogo();
 
@@ -111,7 +111,7 @@ class GameController extends Controller
 
 
 
-        return $this->redirectToRoute('gameedit', array('wild' => $delete));
+        return $this->redirectToRoute('gameedit', array('id' => $delete));
     }
 
 }

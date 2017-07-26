@@ -13,7 +13,7 @@ class CompanyController extends FOSRestController
      * 
      * @View(serializerGroups={"Default"})
      */
-    public function getAction()
+    public function getlistAction()
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -30,7 +30,7 @@ class CompanyController extends FOSRestController
      * @View(serializerGroups={"list", "Default"})
      * 
      */
-    public function idAction($id)
+    public function getCompanyAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $company = $em->getRepository('MaciejStudyBundle:Company')->find($id);

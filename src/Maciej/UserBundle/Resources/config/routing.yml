@@ -9,7 +9,7 @@ usergamesearch:
     defaults: { _controller: MaciejUserBundle:Game:search, page: 1 }
   
 usergamesingle:
-    path: /game/game/{name}
+    path: /game/{id}
     defaults: { _controller: MaciejUserBundle:Game:single }
       
 usercompanylist:
@@ -17,7 +17,7 @@ usercompanylist:
     defaults: { _controller: MaciejUserBundle:Company:list }
     
 usercompanysingle:
-    path: /company/{name}
+    path: /company/{id}
     defaults: { _controller: MaciejUserBundle:Company:single }
     
 login:

@@ -11,7 +11,7 @@
         {% for game in games %}
             <tr> 
                 <td>
-                    <a href="{{ path('gameimagelist', {'wild' : game.title})}}">{{ game.title}}</a>  
+                    <a href="{{ path('gameimagelist', {'title' : game.title})}}">{{ game.title}}</a>  
                 </td>
             </tr>
         {% endfor %}
@@ -21,7 +21,7 @@
         {%for image in images %}
             {% if image.title == game1 %}
                 <img src="{{asset('/uploads/gameimages/' ~ image.gameimage )}}"> 
-                <a href="{{path('gameimagedelete', {'wild' : image.id})}}"> Delete </a>
+                <a href="{{path('gameimagedelete', {'id' : image.id})}}"> Delete </a>
               
             {%endif%}
         {%endfor%}
@@ -30,7 +30,7 @@
             {%for image in images %}
                 {% if url.key == image.gameimage and image.title == game1%} 
                     <img src="{{asset(url.url)}}"> 
-                    <a href="{{path('gameimagedelete', {'wild' : image.id})}}"> Delete </a>
+                    <a href="{{path('gameimagedelete', {'id' : image.id})}}"> Delete </a>
                 {% endif %}
             {% endfor %}
         {% endfor %}

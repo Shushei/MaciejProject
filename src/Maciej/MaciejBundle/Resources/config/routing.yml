@@ -11,15 +11,15 @@ companylist:
     defaults: { _controller: MaciejStudyBundle:Company:list }
     
 companydelete:
-    path: admin/company/delete/{wild}
+    path: admin/company/delete/{id}
     defaults: {_controller: MaciejStudyBundle:Company:delete}
     
 companyedit:
-    path: admin/company/edit/{wild}
+    path: admin/company/edit/{id}
     defaults: {_controller: MaciejStudyBundle:Company:edit}
     
 companydeleteimage:
-    path: admin/company/imagedelete/{wild}
+    path: admin/company/imagedelete/{id}
     defaults: { _controller: MaciejStudyBundle:Company:deleteimage}
     
 gameform:
@@ -31,15 +31,15 @@ gamelist:
     defaults: { _controller: MaciejStudyBundle:Game:list }
     
 gamedelete:
-    path: admin/game/delete/{wild}
+    path: admin/game/delete/{id}
     defaults: {_controller: MaciejStudyBundle:Game:delete}
     
 gameedit:
-    path: admin/game/edit/{wild}
+    path: admin/game/edit/{id}
     defaults: {_controller: MaciejStudyBundle:Game:edit}
     
 gamedeleteimage:
-    path: admin/game/imagedelete/{wild}
+    path: admin/game/imagedelete/{id}
     defaults: { _controller: MaciejStudyBundle:Game:deleteimage}
     
 gameimageform:
@@ -47,11 +47,11 @@ gameimageform:
     defaults: {_controller : MaciejStudyBundle:GameImage:form}
     
 gameimagelist:
-    path:  admin/gameimage/list/{wild}
+    path:  admin/gameimage/list/{title}
     defaults: { _controller: MaciejStudyBundle:GameImage:list }
     
 gameimagedelete:
-    path: admin/gameimage/delete/{wild}
+    path: admin/gameimage/delete/{id}
     defaults: { _controller: MaciejStudyBundle:GameImage:delete}
     
 logout:
