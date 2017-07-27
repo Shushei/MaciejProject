@@ -9,90 +9,137 @@
     {{ render(controller('MaciejUserBundle:Game:search'))}}
 
 
-</tr>
-</table>
-</form>
 
-<table>
+    <button id="searchButton">Search</button>
 
-    <tr>
-        <td>Title</td>
-        <td>Company name</td>
-        <td> Date </td>
-        <td> Logo </td>
-    </tr>
-    {% for game in games %}
-        <tr id="game{{game.getId()}}">
-            <td> {{game.getTitle()}} </td>    
-            <td> {{game.getCompany().company}} </td>
-            <td> {{game.getReleaseDate().format('Y-m-d')}} </td>
-            <td>
-                {% if urls is empty %} 
-                    <img src="{{asset('/uploads/logos/' ~ game.getLogo())}}"> 
-                {% else %}
-                    {%for url in urls %}
-                        {% if url.key == game.getLogo() %} 
-                            <img src="{{asset(url.url)}}"> 
+    <table>
 
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-            </td>
-
-            <td>  <a href="{{ path('usergamesingle', {'id' : game.getId()})}}">View Game</a> </td>
-
+        <tr>
+            <td>Title</td>
+            <td>Company name</td>
+            <td> Date </td>
+            <td> Logo </td>
         </tr>
+        {% for game in games %}
+            <tr class="gameRow" id="game{{game.getId()}}">
+                <td> {{game.getTitle()}} </td>    
+                <td> {{game.getCompany().company}} </td>
+                <td> {{game.getReleaseDate().format('Y-m-d')}} </td>
+                <td>
+                    {% if urls is empty %} 
+                        <img src="{{asset('/uploads/logos/' ~ game.getLogo())}}"> 
+                    {% else %}
+                        {%for url in urls %}
+                            {% if url.key == game.getLogo() %} 
+                                <img src="{{asset(url.url)}}"> 
+
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </td>
+
+                <td>  <a href={{ path('usergamesingle', {'id' : game.getId()})}}>View Game</a> </td>
+
+            </tr>
+        {%endfor%}
+        <tr id="add"></tr>
+    </table>
+    <div id="loading"></div>
+    {%for p in 1..pages %}
+        <a href="{{ path('usergamesearch', {'pagee' : p, 'url' : criteria})}}">{{p}}</a>
+
     {%endfor%}
 
-</table>
+    <button id="load-more">Load More</button>
+    <script type="text/javascript">
+        page = 1;
+        var size ={{size}}
+                var criteria ={{criteria|json_encode|raw}}
+                $("#load-more").click(function () {
+            page = page + 1;
+            $("#loading").html('<img id="loader-img alt="" src="http://shushei.site/uploads/logos/5f70f17f63fad1f9f28c7db384b74394.png" width="100" align="center">');
+            $.ajax({
+                method: "GET",
+                url: "http://shushei.site/app_dev.php/api2/game/ajax/update",
+                dataType: "json",
+                contentType: "application/json",
+                data: {page: page, size: size, criteria},
+                success: function (a) {
+                    $("#loading").remove();
+                    $.each(a, function (key, element) {
 
-{%for p in 1..pages %}
-    <a href="{{ path('usergamesearch', {'pagee' : p, 'url' : criteria})}}">{{p}}</a>
+                        var date = new Date(element.release_date);
+                        var day = date.getDate();
+                        var month = date.getMonth() + 1;
+                        var year = date.getFullYear();
 
-{%endfor%}
+                        $("#add").before(
+                                $("<tr class=gameRow id=game" + element.id + "></tr>").html(
+                                "<td>" + element.title +
+                                "</td><td>" + element.company.company +
+                                "</td><td>" + year + "-" + month + "-" + day +
+                                "</td><td> <img src=http://shushei.site/uploads/logos/" + element.logo +
+                                "></td><td><a id=gameimage" + element.id + ">View Game</a></td>"));
+                        $("#gameimage" + element.id).attr("href", element.id);
 
-<button id="load-more">Load More</button>
-<script type="text/javascript">
-    var x = 1;
-    var criteria ={{criteria|json_encode|raw}}
-            $("#load-more").click(function () {
-        x = x + 1;
-        $.ajax({
-            method: "GET",
-            url: "http://shushei.site/app_dev.php/api2/game/ajax/update",
-            dataType: "json",
-            contentType: "application/json",
-            data: {page: x, size: "2", criteria},
-            success: function (a) {
-                $.each(a, function (key, element) {
-                    
-                    var date = new Date(element.release_date);
-                    var day = date.getDate();
-                    var month = date.getMonth()+ 1;
-                    var year = date.getFullYear();
+                    });
+                },
+                error: function () {
+                    alert("There is no more records");
+                    return false;
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $("#searchButton").click(function () {
+            page = 1;
+            $("#loading").html('<img id="loader-img alt="" src="http://shushei.site/uploads/logos/5f70f17f63fad1f9f28c7db384b74394.png" width="100" align="center">');
+            var title = $("#search_game_searchTitle").val();
+            var companyId = $("#search_game_searchCompany").val();
+            var minDate = $("#search_game_minDate").val();
+            var maxDate = $("#search_game_maxDate").val();
+            $(".gameRow").remove();
+            $.ajax({
+                method: "GET",
+                url: "http://shushei.site/app_dev.php/api2/game/ajax/update",
+                dataType: "json",
+                contentType: "application/json",
+                data: {page: page,
+                    size: size,
+                    criteria: {
+                        title: title,
+                        company: companyId,
+                        minDate: minDate,
+                        maxDate: maxDate}},
+                success: function (a) {
+                    $("#loading").remove();
+                    $.each(a, function (key, element) {
 
-                    $("#game" + (element.id - 1)).after(
-                            $("<tr id=game" + element.id + "></tr>").html(
-                            "<td>" + element.title +
-                            "</td><td>" + element.company.company + 
-                            "</td><td>" + year+"-"+month+"-"+day + 
-                            "</td><td> <img src=http://shushei.site/uploads/logos/"+element.logo+"></td>"));
-                });
-            },
-            error: function () {
-                alert("There is no more records");
-                return false;
-            }
+                        var date = new Date(element.release_date);
+                        var day = date.getDate();
+                        var month = date.getMonth() + 1;
+                        var year = date.getFullYear();
 
+                        $("#add").before(
+                                $("<tr class=gameRow id=game" + element.id + "></tr>").html(
+                                "<td>" + element.title +
+                                "</td><td>" + element.company.company +
+                                "</td><td>" + year + "-" + month + "-" + day +
+                                "</td><td> <img src=http://shushei.site/uploads/logos/" + element.logo +
+                                "></td><td><a id=gameimage" + element.id + ">View Game</a></td>"));
+                        $("#gameimage" + element.id).attr("href", element.id);
 
-
+                    });
+                },
+                error: function () {
+                    alert("There is no more records");
+                    return false;
+                }
+            });
         });
 
-
-
-
-    });
-</script>
+    </script>
 
 
 {% endblock %}  {# empty Twig template #}

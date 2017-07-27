@@ -30,10 +30,9 @@ class GameController extends Controller
                     'games' => $gamesFiltered,
                     'pages' => $pages,
                     'criteria' => $url,
+                    'size' => $pageSize
         ));
     }
-
-    
 
     public function singleAction(Request $request)
     {
