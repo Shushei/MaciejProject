@@ -22,8 +22,8 @@ class CompanyController extends Controller
     {$em = $this->getDoctrine()->getManager();
          $fileUploader = $this->get('FileUploader');
          $urls = $fileUploader->listing();
-         $name = $request->get('name');
-         $company = $em->getRepository('MaciejStudyBundle:Company')->findOneByCompany($name);
+         $id = $request->get('id');
+         $company = $em->getRepository('MaciejStudyBundle:Company')->find($id);
          $games = $em->getRepository('MaciejStudyBundle:Game')->findAll();
          
          return $this->render('MaciejUserBundle:Company:single.html.twig', array(

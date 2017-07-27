@@ -47,7 +47,7 @@ class CompanyController extends Controller
     public function deleteAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $delete = $request->get('wild');
+        $delete = $request->get('id');
         $company = $em->getRepository('MaciejStudyBundle:Company')->find($delete);
         $em->remove($company);
         $em->flush();
@@ -59,7 +59,7 @@ class CompanyController extends Controller
     {
 
         $em = $this->getDoctrine()->getManager();
-        $edit = $request->get('wild');
+        $edit = $request->get('id');
         $company = $em->getRepository('MaciejStudyBundle:Company')->find($edit);
         $clogo = $company->getClogo();
         $fileUploader = $this->get('FileUploader');
@@ -94,7 +94,7 @@ class CompanyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $fileUploader = $this->get('FileUploader');
         $fileUploader->setTableName('company');
-        $delete = $request->get('wild');
+        $delete = $request->get('id');
         $company = $em->getRepository('MaciejStudyBundle:Company')->find($delete);
         $clogo = $company->getClogo();
         $fileUploader->delete($clogo);

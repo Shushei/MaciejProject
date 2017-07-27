@@ -15,15 +15,15 @@
         </tr>
 
         <tr>
-            <td> {{Game.title}} </td>    
-            <td> {{Game.company.company}} </td>
-            <td> {{Game.releaseDate.format('Y-m-d')}} </td>
+            <td> {{Game.getTitle()}} </td>    
+            <td> {{Game.getCompany().getCompany()}} </td>
+            <td> {{Game.getReleaseDate().format('Y-m-d')}} </td>
             <td>
                 {% if urls is empty %} 
-                    <img src="{{asset('/uploads/logos/' ~ Game.logo)}}"> 
+                    <img src="{{asset('/uploads/logos/' ~ Game.getLogo())}}"> 
                 {% else %}
                     {%for url in urls %}
-                        {% if url.key == Game.logo %} 
+                        {% if url.key == Game.getLogo() %} 
                             <img src="{{asset(url.url)}}"> 
                         {% endif %}
                     {% endfor %}

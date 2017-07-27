@@ -1,31 +1,40 @@
 <?php
+
 namespace Maciej\Api2Bundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\View\View;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use JMS\Serializer\SerializationContext;
 
 class GameController extends FOSRestController
 {
-    public function getAction()
+
+    public function getlistAction()
     {
+        $context = SerializationContext::create()->setGroups(array(
+            'Default'
+        ));
         $em = $this->getDoctrine()->getManager();
         $games = $em->getRepository('MaciejStudyBundle:Game')->findAll();
-        if ($games == null){
+        $serializer = $this->get('jms_serializer');
+        if ($games == null) {
             return new View("There exists no companies", Response::HTTP_NOT_FOUND);
         }
-        return $games;
+        $gamesview= $serializer->serialize($games,'json', $context);
+        return $gamesview;
     }
-    public function idAction($id)
+
+    public function getGameAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $game = $em->getRepository('MaciejStudyBundle:Game')->find($id);
-        if ($game == null){
+        if ($game == null) {
             return new View("There exists no companies", Response::HTTP_NOT_FOUND);
         }
-        return $game;
+         $serializer = $this->get('jms_serializer');
+           $gameview= $serializer->serialize($game,'json');
+        return $gameview;
     }
+
 }

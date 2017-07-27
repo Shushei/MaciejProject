@@ -5,9 +5,10 @@ namespace Maciej\MaciejBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Maciej\UserBundle\Repository\GameRepository")
  * @ORM\Table(name="game")
  */
 class Game
@@ -28,7 +29,7 @@ class Game
 
     /**
      * @ORM\OneToMany(targetEntity="GameImage", mappedBy="title")
-     * 
+     * @Groups({"list"})
      */
     private $images;
 
@@ -40,6 +41,7 @@ class Game
     /**
      * @ORM\ManyToOne(targetEntity="Company", inversedBy="games")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     * @Groups({"list"})
      */
     protected $company;
 

@@ -2,33 +2,44 @@
 
 namespace Maciej\Api2Bundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\View\View;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use FOS\RestBundle\Controller\Annotations\View;
 
 class CompanyController extends FOSRestController
 {
-    public function getAction()
+
+    /**
+     * 
+     * @View(serializerGroups={"Default"})
+     */
+    public function getlistAction()
     {
+
         $em = $this->getDoctrine()->getManager();
         $companies = $em->getRepository('MaciejStudyBundle:Company')->findAll();
-        if ($companies == null){
+        if ($companies == null) {
             return new View("There exists no companies", Response::HTTP_NOT_FOUND);
         }
+
         return $companies;
     }
-    public function idAction($id)
+
+    /**
+     * 
+     * @View(serializerGroups={"list", "Default"})
+     * 
+     */
+    public function getCompanyAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $company = $em->getRepository('MaciejStudyBundle:Company')->find($id);
-        if ($company == null){
+      
+        if ($company == null) {
             return new View("There exists no companies", Response::HTTP_NOT_FOUND);
         }
+        
         return $company;
     }
+
 }
-
-

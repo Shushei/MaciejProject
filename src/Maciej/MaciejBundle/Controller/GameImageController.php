@@ -36,7 +36,7 @@ class GameImageController extends Controller
         $fileUploader->setTableName('gameimage');
         $repository = $em->getRepository('MaciejStudyBundle:GameImage')->findAll();
         $games = $em->getRepository('MaciejStudyBundle:Game')->findall();
-        $title = $request->get('wild');
+        $title = $request->get('title');
         $game1 = $em->getRepository('MaciejStudyBundle:Game')->findOneByTitle($title);
         $urls = $fileUploader->listing();
 
@@ -52,20 +52,20 @@ class GameImageController extends Controller
     public function deleteAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $delete = $request->get('wild');
+        $delete = $request->get('id');
         $GameImage = $em->getRepository('MaciejStudyBundle:GameImage')->find($delete);
         $title = $GameImage->getTitle()->getTitle();
         $em->remove($GameImage);
         $em->flush();
 
-        return $this->redirecttoRoute('gameimagelist', array('wild' => $title));
+        return $this->redirecttoRoute('gameimagelist', array('id' => $title));
     }
 
     public function editAction(Request $request)
     {
 
         $em = $this->getDoctrine()->getManager();
-        $edit = $request->get('wild');
+        $edit = $request->get('id');
         $GameImage = $em->getRepository('MaciejStudyBundle:GameImage')->find($edit);
         $image = $GameImage->getGameImage();
 
@@ -94,7 +94,7 @@ class GameImageController extends Controller
         $em = $this->getDoctrine()->getManager();
         $fileUploader = $this->get('FileUploader');
         $fileUploader->setTableName('gameimage');
-        $delete = $request->get('wild');
+        $delete = $request->get('id');
         $GameImage = $em->getRepository('MaciejStudyBundle:GameImage')->find($delete);
         $image = $GameImage->getGameImage();
         $GameImageName = $image->getFilename();
@@ -105,7 +105,7 @@ class GameImageController extends Controller
 
 
 
-        return $this->redirectToRoute('GameImageedit', array('wild' => $delete));
+        return $this->redirectToRoute('GameImageedit', array('id' => $delete));
     }
 
 }

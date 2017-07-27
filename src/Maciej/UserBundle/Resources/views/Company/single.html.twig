@@ -14,10 +14,10 @@
             <td>Founding Date </td>
         </tr>
         <tr>
-            <td> {{company.company}} </td> 
-            <td> {{company.ownername}} </td>
-            <td> {{company.ownersurname}} </td>
-            <td> {{company.founded.format('Y-m-d')}} </td>
+            <td> {{company.getGompany}} </td> 
+            <td> {{company.getOwnername}} </td>
+            <td> {{company.getOwnersurname}} </td>
+            <td> {{company.getFounded.format('Y-m-d')}} </td>
             <td> 
                 {% if urls is empty %} 
                     <img src="{{asset('/uploads/companies/' ~ company.clogo)}}"> 
@@ -48,17 +48,17 @@
                     <td> {{game.releaseDate.format('Y-m-d')}} </td>
                     <td>
                         {% if urls is empty %} 
-                            <img src="{{asset('/uploads/logos/' ~ game.logo)}}"> 
+                            <img src="{{asset('/uploads/logos/' ~ game.getLogo)}}"> 
                         {% else %}
                             {%for url in urls %}
-                                {% if url.key == game.logo %} 
+                                {% if url.key == game.getLogo %} 
                                     <img src="{{asset(url.url)}}"> 
 
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
                     </td>
-                    <td>  <a href="{{ path('gamedelete', {'wild' : game.title})}}">Game View</a> </td>
+                    <td>  <a href="{{ path('usergamesingle', {'id' : game.getId})}}">Game View</a> </td>
                 </tr>
             {%endif%}
         {%endfor%}

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
@@ -24,7 +25,7 @@ class Company
 
     /**
      * @ORM\OneToMany(targetEntity="Game", mappedBy="company")
-     * 
+     * @Groups({"list"})
      */
     private $games;
 

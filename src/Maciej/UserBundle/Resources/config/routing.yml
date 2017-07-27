@@ -1,23 +1,29 @@
 
    
 usergamelist:
-    path: /game/list
-    defaults: { _controller: MaciejUserBundle:Game:list }
+    path: /game/list/{pagee}
+    defaults: { _controller: MaciejUserBundle:Game:list, pagee: 1 }
     
+usergamesearch:
+    path: /game/search
+    defaults: { _controller: MaciejUserBundle:Game:search }
+  
 usergamesingle:
-    path: /game/{name}
+    path: /game/{id}
     defaults: { _controller: MaciejUserBundle:Game:single }
-    
-   
+      
 usercompanylist:
     path: /company/list
     defaults: { _controller: MaciejUserBundle:Company:list }
     
 usercompanysingle:
-    path: /company/{name}
+    path: /company/{id}
     defaults: { _controller: MaciejUserBundle:Company:single }
     
 login:
     path: /login
     defaults: { _controller: MaciejUserBundle:Security:login}
+    
+
+   
     

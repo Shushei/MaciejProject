@@ -20,7 +20,7 @@
             {% endif %}
         {% endfor %}
     {% endif %}
-    <a href="{{ path('gamedeleteimage', {'wild' : game.id})}}">Delete Image </a>
+    <a href="{{ path('gamedeleteimage', {'id' : game.id})}}">Delete Image </a>
 {%endif%}
     <input type="submit" value="Edit"
            class="btn btn-default pull-right"/>
