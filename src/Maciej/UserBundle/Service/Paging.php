@@ -2,10 +2,10 @@
 namespace Maciej\UserBundle\Service;
 
 class Paging {
-    public function paging($lenght){
+    public function paging($lenght, $size){
         
-        $x = (int)($lenght/3);
-        if (($lenght/3) > $x){
+        $x = (int)($lenght/$size);
+        if (($lenght/$size) > $x){
             $pages = $x +1;
         }else{
             $pages = $x;

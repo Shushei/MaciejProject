@@ -6,11 +6,8 @@
 
 
 {% block body %} 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" value="Search"
-           class="btn btn-default pull-right"/>
-    {{ form_end(form) }}
+    {{ render(controller('MaciejUserBundle:Game:search'))}}
+   
 
 </tr>
 </table>
@@ -53,6 +50,7 @@
     <a href="{{ path('usergamesearch', {'pagee' : p, 'url' : criteria})}}">{{p}}</a>
 
 {%endfor%}
+
 {{dump(criteria)}}
 
 

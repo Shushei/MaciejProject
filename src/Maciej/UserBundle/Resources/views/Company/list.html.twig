@@ -16,24 +16,24 @@
         </tr>
         {% for company in companies %}
             <tr>
-                <td> {{company.id}} </td>
-                <td> {{company.company}} </td> 
-                <td> {{company.ownername}} </td>
-                <td> {{company.ownersurname}} </td>
-                <td> {{company.founded.format('Y-m-d')}} </td>
+                <td> {{company.getId}} </td>
+                <td> {{company.getCompany}} </td> 
+                <td> {{company.getOwnername}} </td>
+                <td> {{company.getOwnersurname}} </td>
+                <td> {{company.getFounded.format('Y-m-d')}} </td>
                 <td> 
                     {% if urls is empty %} 
-                        <img src="{{asset('/uploads/companies/' ~ company.clogo)}}"> 
+                        <img src="{{asset('/uploads/companies/' ~ company.getClogo)}}"> 
                     {% else %}
                         {%for url in urls %}
-                            {% if url.key == company.clogo %} 
+                            {% if url.key == company.getClogo %} 
                                 <img src="{{asset(url.url)}}"> 
 
                             {% endif %}
                         {% endfor %}
                     {% endif %}
                 </td>
-                <td>  <a href="{{ path('usercompanysingle', {'id' : company.id})}}">View Company</a> </td>
+                <td>  <a href="{{ path('usercompanysingle', {'id' : company.getId})}}">View Company</a> </td>
                 
             </tr>
         {% endfor %}
