@@ -11,7 +11,7 @@ class GameController extends Controller
 
     public function listAction(Request $request)
     {   
-        $pageSize = 4;
+        $pageSize = 2;
         $em = $this->getDoctrine()->getManager();
         $fileUploader = $this->get('FileUploader');
         $paging = $this->get('Paging');

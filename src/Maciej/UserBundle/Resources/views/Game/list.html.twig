@@ -7,7 +7,7 @@
 
 {% block body %} 
     {{ render(controller('MaciejUserBundle:Game:search'))}}
-   
+
 
 </tr>
 </table>
@@ -51,7 +51,14 @@
 
 {%endfor%}
 
-{{dump(criteria)}}
+<button id="load-more">Load More</button>
+<script type="text/javascript">
+    $("#load-more").click(function(){
+        $.ajax({
+            
+        })
+    })
+</script>
 
 
 {% endblock %}  {# empty Twig template #}
