@@ -2,29 +2,35 @@
 
 namespace Maciej\Api2Bundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\View\View;
+use FOS\RestBundle\Controller\Annotations\View;
 use JMS\Serializer\SerializationContext;
 
 class GameController extends FOSRestController
 {
 
+    /**
+     * 
+     * @View(serializerGroups={"Default"})
+     */
     public function getlistAction()
     {
-        $context = SerializationContext::create()->setGroups(array(
-            'Default'
-        ));
+
         $em = $this->getDoctrine()->getManager();
         $games = $em->getRepository('MaciejStudyBundle:Game')->findAll();
-        $serializer = $this->get('jms_serializer');
         if ($games == null) {
             return new View("There exists no companies", Response::HTTP_NOT_FOUND);
         }
-        $gamesview= $serializer->serialize($games,'json', $context);
-        return $gamesview;
+        return $games;
     }
 
+    /**
+     * 
+     * @View(serializerGroups={"list", "Default"})
+     * 
+     */
     public function getGameAction($id)
     {
         $em = $this->getDoctrine()->getManager();
@@ -32,9 +38,24 @@ class GameController extends FOSRestController
         if ($game == null) {
             return new View("There exists no companies", Response::HTTP_NOT_FOUND);
         }
-         $serializer = $this->get('jms_serializer');
-           $gameview= $serializer->serialize($game,'json');
-        return $gameview;
-    }
 
+        return $game;
+    }
+    /**
+     * 
+     * @View(serializerGroups={"Default", "list"})
+     */
+    public function getListByCriteriaAction(Request $request)
+    {   
+        $page =   $request->get('page');
+        $criteria =  $request->get('criteria');
+        $size =  $request->get('size');
+        $em = $this->getDoctrine()->getManager();
+        $gamesFiltered= $em->getRepository('MaciejStudyBundle:Game')->findByCriteria($criteria, $page, $size);
+        if ($gamesFiltered == null){
+            return new View("There exists no companies", Response::HTTP_NOT_FOUND);
+        }
+        return $gamesFiltered;
+        
+    }
 }

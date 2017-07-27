@@ -10,7 +10,7 @@ class GameController extends Controller
 {
 
     public function listAction(Request $request)
-    {   
+    {
         $pageSize = 2;
         $em = $this->getDoctrine()->getManager();
         $fileUploader = $this->get('FileUploader');
@@ -32,6 +32,8 @@ class GameController extends Controller
                     'criteria' => $url,
         ));
     }
+
+    
 
     public function singleAction(Request $request)
     {
@@ -58,7 +60,7 @@ class GameController extends Controller
         $pagee = $request->get('pagee');
         $url = $request->get('url');
         $form->handleRequest($request);
-        if ($form->isSubmitted() OR !empty($url) OR !empty($pagee)) {
+        if ($form->isSubmitted() OR ! empty($url) OR ! empty($pagee)) {
             $searchData = $form->getData();
             if (!empty($searchData['searchTitle'])) {
                 $url['title'] = $searchData['searchTitle'];

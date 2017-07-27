@@ -22,7 +22,7 @@
         <td> Logo </td>
     </tr>
     {% for game in games %}
-        <tr id="{{game.getId()}}">
+        <tr id="game{{game.getId()}}">
             <td> {{game.getTitle()}} </td>    
             <td> {{game.getCompany().company}} </td>
             <td> {{game.getReleaseDate().format('Y-m-d')}} </td>
@@ -53,11 +53,45 @@
 
 <button id="load-more">Load More</button>
 <script type="text/javascript">
-    $("#load-more").click(function(){
+    var x = 1;
+    var criteria ={{criteria|json_encode|raw}}
+            $("#load-more").click(function () {
+        x = x + 1;
         $.ajax({
-            
-        })
-    })
+            method: "GET",
+            url: "http://shushei.site/app_dev.php/api2/game/ajax/update",
+            dataType: "json",
+            contentType: "application/json",
+            data: {page: x, size: "2", criteria},
+            success: function (a) {
+                $.each(a, function (key, element) {
+                    
+                    var date = new Date(element.release_date);
+                    var day = date.getDate();
+                    var month = date.getMonth()+ 1;
+                    var year = date.getFullYear();
+
+                    $("#game" + (element.id - 1)).after(
+                            $("<tr id=game" + element.id + "></tr>").html(
+                            "<td>" + element.title +
+                            "</td><td>" + element.company.company + 
+                            "</td><td>" + year+"-"+month+"-"+day + 
+                            "</td><td> <img src=http://shushei.site/uploads/logos/"+element.logo+"></td>"));
+                });
+            },
+            error: function () {
+                alert("There is no more records");
+                return false;
+            }
+
+
+
+        });
+
+
+
+
+    });
 </script>
 
 
