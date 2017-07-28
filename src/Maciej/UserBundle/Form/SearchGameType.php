@@ -22,6 +22,7 @@ class SearchGameType extends AbstractType
                 ->add('searchCompany', EntityType::class, array(
                     'class' => 'MaciejStudyBundle:Company',
                     'choice_label' => 'company',
+                    'choice_value' => 'company',
                     
                     'required' => false
                 ))

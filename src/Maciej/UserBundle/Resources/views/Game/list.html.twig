@@ -54,7 +54,10 @@
     <script type="text/javascript">
         page = 1;
         var size ={{size}}
+        //Ten if jest tylko dlatego że mamy 2 typy poszukiwań
+        if (criteria !== 'undefined' && criteria !== {{criteria|json_encode|raw}}){
                 var criteria ={{criteria|json_encode|raw}}
+            }
                 $("#load-more").click(function () {
             page = page + 1;
             $("#loading").html('<img id="loader-img alt="" src="http://shushei.site/uploads/logos/5f70f17f63fad1f9f28c7db384b74394.png" width="100" align="center">');
@@ -96,9 +99,14 @@
             page = 1;
             $("#loading").html('<img id="loader-img alt="" src="http://shushei.site/uploads/logos/5f70f17f63fad1f9f28c7db384b74394.png" width="100" align="center">');
             var title = $("#search_game_searchTitle").val();
-            var companyId = $("#search_game_searchCompany").val();
+            var company = $("#search_game_searchCompany").val();
             var minDate = $("#search_game_minDate").val();
             var maxDate = $("#search_game_maxDate").val();
+            criteria =  {
+                        title: title,
+                        company: company,
+                        minDate: minDate,
+                        maxDate: maxDate}
             $(".gameRow").remove();
             $.ajax({
                 method: "GET",
@@ -107,11 +115,7 @@
                 contentType: "application/json",
                 data: {page: page,
                     size: size,
-                    criteria: {
-                        title: title,
-                        company: companyId,
-                        minDate: minDate,
-                        maxDate: maxDate}},
+                    criteria},
                 success: function (a) {
                     $("#loading").remove();
                     $.each(a, function (key, element) {
