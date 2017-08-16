@@ -21,3 +21,7 @@ api2gamesingle:
     path:   /game/single/{id}
     defaults: { _controller: MaciejApi2Bundle:Game:GetGame }
     methods: GET
+    
+api2ajaxlistupdate:
+    path:  /game/ajax/update
+    defaults: { _controller: MaciejApi2Bundle:Game:getListByCriteria}

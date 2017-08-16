@@ -12,11 +12,13 @@ class FileUploader implements UploaderInterface
 
     private $fileDir;
     public $tableName;
+    private $fileShowPath;
 
-    public function __construct($args)
+    public function __construct($args, $showArgs)
     {
 
         $this->fileDir = $args;
+        $this->fileShowPath = $showArgs;
     }
 
     public function setTableName($tableName)
@@ -41,16 +43,20 @@ class FileUploader implements UploaderInterface
 
     public function upload(UploadedFile $file)
     {
-        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+        $fileName['name'] = md5(uniqid()) . '.' . $file->guessExtension();
         $fileDir = $this->fileDir;
+        $fileShowPath = $this->fileShowPath;
         if ($this->tableName == 'game') {
-            $file->move($fileDir['logo'], $fileName);
+            $file->move($fileDir['logo'], $fileName['name']);
+            $fileName['path'] = $fileShowPath['logo']."/".$fileName['name'];
         }
         if ($this->tableName == 'company') {
-            $file->move($fileDir['company'], $fileName);
+            $file->move($fileDir['company'], $fileName['name']);
+            $fileName['path'] = $fileShowPath['company']."/".$fileName['name'];
         }
         if ($this->tableName == 'gameimage') {
             $file->move($fileDir['gameimage'], $fileName);
+            $fileName['path'] = $fileShowPath['gameimage']."/".$fileName['name'];
         }
         return $fileName;
     }
@@ -88,9 +94,5 @@ class FileUploader implements UploaderInterface
         }
         return $file;
     }
-    public function listing()
-    {
-        $url = null;
-        return $url;
-    }
+   
 }

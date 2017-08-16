@@ -16,3 +16,14 @@
 body{
     background-color: lightcoral;
 }
+
+#loading{
+    width: 40%;
+    margin: 0 auto;
+    padding: 3em;
+    text-align: center;
+    color: #fff;
+    font-family: 'Raleway', sans-serif;
+    font-size: 18px;
+    font-weight:600;
+}

@@ -61,11 +61,24 @@ class Company
 
     /**
      * @ORM\Column(type="string", nullable = true)
-     * 
      * @Assert\File
-     * 
      */
     private $clogo;
+    
+     /**
+     * @ORM\Column(type="string", nullable = true)
+     */
+    private $fileName;
+    
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
+        
+    public function setFileName($fileName)
+    {
+        return $this->fileName =$fileName;
+    }
 
     public function getClogo()
     {

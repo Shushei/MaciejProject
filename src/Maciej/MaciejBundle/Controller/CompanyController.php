@@ -16,14 +16,11 @@ class CompanyController extends Controller
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
-        
-        
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
             $em->persist($company);
             $em->flush();
-
 
             return $this->redirectToRoute('companylist');
         }
@@ -35,13 +32,9 @@ class CompanyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $fileUploader = $this->get('FileUploader');
         $fileUploader->setTableName('company');
-        $url = $fileUploader->listing();
         $repository = $em->getRepository('MaciejStudyBundle:Company')->findAll();
-      
-        
-        
 
-        return $this->render('MaciejStudyBundle:Company:list.html.twig', array('companies' => $repository, 'urls' => $url));
+        return $this->render('MaciejStudyBundle:Company:list.html.twig', array('companies' => $repository));
     }
 
     public function deleteAction(Request $request)
@@ -64,29 +57,24 @@ class CompanyController extends Controller
         $clogo = $company->getClogo();
         $fileUploader = $this->get('FileUploader');
         $fileUploader->setTableName('company');
-        $url = $fileUploader->listing();
 
         $form = $this->createForm(CompanyType::class, $company);
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-            if (empty($company->getClogo()) && !empty($clogo)){
+            if (empty($company->getClogo()) && !empty($clogo)) {
                 $company->setClogo($clogo);
-            }elseif (!empty($company->getClogo()) && !empty($clogo)){
+            } elseif (!empty($company->getClogo()) && !empty($clogo)) {
                 $fileUploader->delete($clogo);
             }
-
             $em->persist($company);
             $em->flush();
-
 
             return $this->redirectToRoute('companylist');
         }
         return $this->render('MaciejStudyBundle:Company:edit.html.twig', array(
-            'form' => $form->createView(), 
-            'company' => $company,
-            'urls' => $url));
+                    'form' => $form->createView(),
+                    'company' => $company));
     }
 
     public function deleteimageAction(Request $request)
@@ -96,15 +84,14 @@ class CompanyController extends Controller
         $fileUploader->setTableName('company');
         $delete = $request->get('id');
         $company = $em->getRepository('MaciejStudyBundle:Company')->find($delete);
-        $clogo = $company->getClogo();
-        $fileUploader->delete($clogo);
+        $fileName = $company->getFileName();
+        $fileUploader->delete($fileName);
+        $company->setFileName('');
         $company->setClogo('');
         $em->persist($company);
         $em->flush();
 
-
-
-        return $this->redirectToRoute('companyedit', array('wild' => $delete));
+        return $this->redirectToRoute('companyedit', array('id' => $delete));
     }
 
 }

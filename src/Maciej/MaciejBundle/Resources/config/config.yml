@@ -3,6 +3,14 @@ parameters:
     company_directory:      '%kernel.project_dir%/web/uploads/companies'
     gameimage_directory:    '%kernel.project_dir%/web/uploads/gameimages'
     
+    logo_adress: 'http://shushei.site/uploads/logos'
+    company_adress: 'http://shushei.site/uploads/companies'
+    gameimage_adress: 'http://shushei.site/uploads/gameimages'
+    
+    logo_adressAWS: 'https://s3.amazonaws.com/maciej.game'
+    company_adressAWS: 'https://s3.amazonaws.com/maciej.company'
+    gameimage_adressAWS: 'https://s3.amazonaws.com/maciej.gameimage'
+    
 monolog:
     
     handlers:

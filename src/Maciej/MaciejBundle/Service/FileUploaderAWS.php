@@ -11,10 +11,12 @@ class FileUploaderAWS implements UploaderInterface
     private $s3client;
 //bucket
     private $tableName;
+    private $fileShowPath;
 
-    public function __construct($s3Client)
+    public function __construct($s3Client, $showArgs)
     {
         $this->s3client = $s3Client;
+        $this->fileShowPath = $showArgs;
     }
 
     public function setTableName($tableName)
@@ -29,32 +31,36 @@ class FileUploaderAWS implements UploaderInterface
 
     public function upload(UploadedFile $file)
     {
-        $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+        $fileName['name'] = md5(uniqid()) . '.' . $file->guessExtension();
+        $fileShowPath = $this->fileShowPath;
 
         if ($this->tableName == 'game') {
             $this->s3client->putObject(array(
                 'Bucket' => 'maciej' . '.' . $this->tableName,
-                'Key' => $fileName,
+                'Key' => $fileName['name'],
                 'SourceFile' => $file,
                 'ACL' => 'public-read'
             ));
+             $fileName['path'] = $fileShowPath['logo']."/".$fileName['name'];
         }
         if ($this->tableName == 'company') {
             $this->s3client->putObject(array(
                 'Bucket' => 'maciej' . '.' . $this->tableName,
-                'Key' => $fileName,
+                'Key' => $fileName['name'],
                 'SourceFile' => $file,
                 'ACL' => 'public-read'
             ));
+            $fileName['path'] = $fileShowPath['company']."/".$fileName['name'];
         }
         if ($this->tableName == 'gameimage') {
 
             $this->s3client->putObject(array(
                 'Bucket' => 'maciej' . '.' . $this->tableName,
-                'Key' => $fileName,
+                'Key' => $fileName['name'],
                 'SourceFile' => $file,
                 'ACL' => 'public-read'
             ));
+            $fileName['path'] = $fileShowPath['gameimage']."/".$fileName['name'];
         }
         return $fileName;
     }
@@ -82,22 +88,6 @@ class FileUploaderAWS implements UploaderInterface
         }
     }
 
-    public function listing()
-    {
-        $client = $this->s3client;
-        $iterator = $client->listObjects(array(
-            'Bucket' => 'maciej' . '.' . $this->tableName,
-        ));
-        if (!empty($iterator['Contents'])) {
-            foreach ($iterator['Contents'] as $object) {
-                $key = $object['Key'];
-                $url[] = array('key' => $object['Key'], 'url' => $client->getObjectUrl('maciej.' . $this->tableName, $key));
-            }
-        }else{
-            $url = null;
-        }
-        return $url;
-    }
 
     public function download($fileName)
     {
