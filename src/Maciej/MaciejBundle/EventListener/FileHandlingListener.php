@@ -44,21 +44,24 @@ class FileHandlingListener
             $this->uploader->setTableName('game');
             $file = $entity->getLogo();
             $fileName = $this->uploader->upload($file);
-            $entity->setLogo($fileName);
+            $entity->setLogo($fileName['path']);
+            $entity->setFileName($fileName['name']);
         
         }
         if ($entity instanceof Company && $file = $entity->getClogo() instanceof UploadedFile) {
             $this->uploader->setTableName('company');
             $file = $entity->getClogo();
             $fileName = $this->uploader->upload($file);
-            $entity->setClogo($fileName);
+            $entity->setClogo($fileName['path']);
+            $entity->setFileName($fileName['name']);
         
         }
         if ($entity instanceof GameImage && $file = $entity->getGameimage() instanceof UploadedFile) {
             $this->uploader->setTableName('gameimage');
             $file = $entity->getGameimage();
             $fileName = $this->uploader->upload($file);
-            $entity->setGameimage($fileName);
+            $entity->setGameimage($fileName['path']);
+            $entity->setFileName($fileName['name']);
         
         }
 
@@ -69,17 +72,17 @@ class FileHandlingListener
     {
         if ($entity instanceof Game) {
             $this->uploader->setTableName('game');
-            $fileName = $entity->getLogo();
+            $fileName = $entity->getFileName();
             $this->uploader->delete($fileName);
         }
         if ($entity instanceof Company) {
             $this->uploader->setTableName('company');
-            $fileName = $entity->getClogo();
+            $fileName = $entity->getFileName();
             $this->uploader->delete($fileName);
         }
         if ($entity instanceof GameImage) {
             $this->uploader->setTableName('gameimage');
-            $fileName = $entity->getGameimage();
+            $fileName = $entity->getFileName();
             $this->uploader->delete($fileName);
         }
         return;

@@ -18,27 +18,17 @@
                 <td> {{company.ownername}} </td>
                 <td> {{company.ownersurname}} </td>
                 <td> {{company.founded.format('Y-m-d')}} </td>
-                <td> {{dump(urls)}}
-                    {% if urls is empty %} 
-                        <img src="{{asset('/uploads/companies/' ~ company.clogo)}}"> 
-                    {% else %}
-                        {%for url in urls %}
-                            {% if url.key == company.clogo %} 
-                                <img src="{{asset(url.url)}}"> 
-
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                </td>
+                <td> <img src="{{asset(company.clogo)}}"> </td>
                 <td> <a class ="company" id="company{{company.id}}"  href = "{{ path('companydelete', {'id' : company.id})}}"> Delete </a> </td>
                 <td>  <a href="{{ path('companyedit', {'id' : company.id})}}">Edit</a> </td>
             </tr>
+         
         {% endfor %}
     </table>
     <script type="text/javascript">
         $(".company").click(function () {
             if (!confirm("Do You want to delete record?")) {
-                return false
+                return false;
             }
         });
      </script>

@@ -7,21 +7,12 @@
 {% block body %} 
 
     {{ form_start(form) }}
-     {{ form_widget(form) }}
+    {{ form_widget(form) }}
 
-     {% if not company.clogo is empty%}
-   {% if urls is empty %} 
-        <img src="{{asset('/uploads/companies/' ~ company.clogo)}}"> 
-    {% else %}
-        {%for url in urls %}
-            {% if url.key == company.clogo %} 
-                <img src="{{asset(url.url)}}"> 
-
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-    <a href="{{ path('companydeleteimage', {'id' : company.id})}}">Delete Image </a>
-{%endif%}
+    {% if not company.clogo is empty%}
+        <img src="{{asset(company.clogo)}}"> 
+        <a href="{{ path('companydeleteimage', {'id' : company.id})}}">Delete Image </a>
+    {%endif%}
     <input type="submit" value="Edit"
            class="btn btn-default pull-right"/>
 
