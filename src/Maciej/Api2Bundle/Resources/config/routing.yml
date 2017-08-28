@@ -25,3 +25,7 @@ api2gamesingle:
 api2ajaxlistupdate:
     path:  /game/ajax/update
     defaults: { _controller: MaciejApi2Bundle:Game:getListByCriteria}
+    
+api2ajaxgameimageshow:
+    path:   /gameimage/ajax/show
+    defaults: { _controller: MaciejApi2Bundle:GameImage:getImagesByTitle}

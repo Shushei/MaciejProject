@@ -7,8 +7,8 @@
         <button class="dropbtn">Game Galleries</button>
         <div class="dropdown-content">
             {% for game in games %}
-            <a href="{{ path('gameimagelist', {'title' : game.title})}}"> {{ game.title }} Gallery</a>
-             {%endfor%}
+                <a href="{{ path('gameimagelist', {'title' : game.title})}}"> {{ game.title }} Gallery</a>
+            {%endfor%}
         </div>
 
     </div>
@@ -23,7 +23,36 @@
     <input type="submit" value="Create"
            class="btn btn-default pull-right"/>
     {{ form_end(form) }}
+    <table>
+        <tr id ="add">
+        </tr>
+    </table>
+        <script type="text/javascript">
 
+            $("#game_image_title").change(function () {
+                var title = $("#game_image_title").val();
+                $(".logoRow").remove();
+                $(".imageRow").remove();
+                $.ajax({
+                    method: "GET",
+                    url: "http://shushei.site/app_dev.php/api2/gameimage/ajax/show",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: {title: title},
+                    success: function (a) {
+                        $("#loading").remove();
+                        $.each(a, function (key, element) {
 
-{% endblock %}    
+                            $("#add").before(
+                                    $("<tr class=imageRow id=image" + element.id + "></tr>").html(
+                                    "<td> <img id=imagepath"+element.id + "></td>"));
+                            $("#imagepath"+element.id).attr("src", element.gameimage);
+                            
+                        });
+                    }
+                });
+            });
+        </script>
+
+    {% endblock %}    
 
