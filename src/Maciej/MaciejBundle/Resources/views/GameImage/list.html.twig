@@ -17,23 +17,7 @@
         {% endfor %}
     </table>
     <b> {{ game1.title }} Gallery </b></br>
-    {% if urls is empty %}
-        {%for image in images %}
-            {% if image.title == game1 %}
-                <img src="{{asset('/uploads/gameimages/' ~ image.gameimage )}}"> 
-                <a href="{{path('gameimagedelete', {'id' : image.id})}}"> Delete </a>
-              
-            {%endif%}
-        {%endfor%}
-    {% else %}
-        {%for url in urls %}
-            {%for image in images %}
-                {% if url.key == image.gameimage and image.title == game1%} 
-                    <img src="{{asset(url.url)}}"> 
-                    <a href="{{path('gameimagedelete', {'id' : image.id})}}"> Delete </a>
-                {% endif %}
-            {% endfor %}
-        {% endfor %}
-    {% endif %}
+        {{dump(games)}}
+    
 
 {% endblock %}  

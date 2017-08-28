@@ -32,20 +32,17 @@ class GameImageController extends Controller
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $fileUploader = $this->get('FileUploader');
-        $fileUploader->setTableName('gameimage');
         $repository = $em->getRepository('MaciejStudyBundle:GameImage')->findAll();
         $games = $em->getRepository('MaciejStudyBundle:Game')->findall();
         $title = $request->get('title');
         $game1 = $em->getRepository('MaciejStudyBundle:Game')->findOneByTitle($title);
-        $urls = $fileUploader->listing();
+     
 
 
         return $this->render('MaciejStudyBundle:GameImage:list.html.twig', array(
                     'images' => $repository,
                     'game1' => $game1,
                     'games' => $games,
-                    'urls' => $urls,
         ));
     }
 

@@ -14,25 +14,18 @@
             <td>Founding Date </td>
         </tr>
         <tr>
-            <td> {{company.getGompany}} </td> 
+            <td> {{company.getCompany}} </td> 
             <td> {{company.getOwnername}} </td>
             <td> {{company.getOwnersurname}} </td>
             <td> {{company.getFounded.format('Y-m-d')}} </td>
             <td> 
-                {% if urls is empty %} 
-                    <img src="{{asset('/uploads/companies/' ~ company.clogo)}}"> 
-                {% else %}
-                    {%for url in urls %}
-                        {% if url.key == company.clogo %} 
-                            <img src="{{asset(url.url)}}"> 
-
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
+               
+                    <img src="{{asset(company.clogo)}}"> 
+              
             </td>
         </tr>
     </table>
-            Company released games!
+            Company released games:
     <table>
          <tr>
             <td>Title</td>
@@ -40,6 +33,7 @@
             <td> Date </td>
             <td> Logo </td>
         </tr>
+        {{dump(company)}}
         {% for game in games %}
             {%if game.company == company %}
                 <tr>

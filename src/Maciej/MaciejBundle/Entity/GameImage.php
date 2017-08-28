@@ -32,6 +32,21 @@ class GameImage
      */
     private $gameimage;
     
+     /**
+      * @ORM\Column(type="string")
+      * 
+      */
+    private $fileName;
+    
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
+    public function setFileName($fileName)
+    {
+        return $this->fileName = $fileName;
+    }
+    
     public function getId()
     {
         return $this->id;

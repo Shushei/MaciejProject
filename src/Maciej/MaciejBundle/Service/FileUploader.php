@@ -46,16 +46,13 @@ class FileUploader implements UploaderInterface
         $fileName['name'] = md5(uniqid()) . '.' . $file->guessExtension();
         $fileDir = $this->fileDir;
         $fileShowPath = $this->fileShowPath;
-        if ($this->tableName == 'game') {
-            $file->move($fileDir['logo'], $fileName['name']);
-            $fileName['path'] = $fileShowPath['logo']."/".$fileName['name'];
-        }
+       
         if ($this->tableName == 'company') {
             $file->move($fileDir['company'], $fileName['name']);
             $fileName['path'] = $fileShowPath['company']."/".$fileName['name'];
         }
         if ($this->tableName == 'gameimage') {
-            $file->move($fileDir['gameimage'], $fileName);
+            $file->move($fileDir['gameimage'], $fileName['name']);
             $fileName['path'] = $fileShowPath['gameimage']."/".$fileName['name'];
         }
         return $fileName;
@@ -65,9 +62,7 @@ class FileUploader implements UploaderInterface
     {
         
         $fileDir = $this->fileDir;
-        if ($this->tableName == 'game') {
-            $file = new File($fileDir['logo'] . '/' . $fileName);
-        }
+        
         if ($this->tableName == 'company') {
             $file = new File($fileDir['company'] . '/' . $fileName);
         }
@@ -83,9 +78,7 @@ class FileUploader implements UploaderInterface
     public function download($fileName)
     {
         $fileDir = $this->fileDir;
-        if ($this->tableName == 'game') {
-            $file = new File($fileDir['logo'] . '/' . $fileName);
-        }
+       
         if ($this->tableName == 'company') {
             $file = new File($fileDir['company'] . '/' . $fileName);
         }

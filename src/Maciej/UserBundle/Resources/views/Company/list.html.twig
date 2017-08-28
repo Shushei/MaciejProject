@@ -22,16 +22,9 @@
                 <td> {{company.getOwnersurname}} </td>
                 <td> {{company.getFounded.format('Y-m-d')}} </td>
                 <td> 
-                    {% if urls is empty %} 
-                        <img src="{{asset('/uploads/companies/' ~ company.getClogo)}}"> 
-                    {% else %}
-                        {%for url in urls %}
-                            {% if url.key == company.getClogo %} 
-                                <img src="{{asset(url.url)}}"> 
-
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
+                   
+                        <img src="{{asset(company.getClogo)}}"> 
+                   
                 </td>
                 <td>  <a href="{{ path('usercompanysingle', {'id' : company.getId})}}">View Company</a> </td>
                 
