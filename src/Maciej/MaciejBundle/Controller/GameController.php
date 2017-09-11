@@ -37,15 +37,9 @@ class GameController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $fileUploader = $this->get('FileUploader');
-        $fileUploader->setTableName('game');
-        $url = $fileUploader->listing();
         $repository = $em->getRepository('MaciejStudyBundle:Game')->findAll();
 
-
-
-
-        return $this->render('MaciejStudyBundle:Game:list.html.twig', array('games' => $repository, 'urls' => $url));
+        return $this->render('MaciejStudyBundle:Game:list.html.twig', array('games' => $repository));
     }
 
     public function deleteAction(Request $request)

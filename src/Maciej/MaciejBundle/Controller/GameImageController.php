@@ -19,10 +19,15 @@ class GameImageController extends Controller
         $games = $em->getRepository('MaciejStudyBundle:Game')->findall();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            if ($GameImage->getIsLogo() == 1) {
+                $id = $GameImage->getId();
+                $title = $GameImage->getTitle();
+                $logohandler = $this->get('LogoHandler');
+                $images = $logohandler->setLogo($em, $title, $id);        
+            }
+            
             $em->persist($GameImage);
             $em->flush();
-
 
             return $this->redirectToRoute('gameimageform', array('games' => $games));
         }
@@ -32,20 +37,17 @@ class GameImageController extends Controller
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $fileUploader = $this->get('FileUploader');
-        $fileUploader->setTableName('gameimage');
         $repository = $em->getRepository('MaciejStudyBundle:GameImage')->findAll();
         $games = $em->getRepository('MaciejStudyBundle:Game')->findall();
         $title = $request->get('title');
         $game1 = $em->getRepository('MaciejStudyBundle:Game')->findOneByTitle($title);
-        $urls = $fileUploader->listing();
+
 
 
         return $this->render('MaciejStudyBundle:GameImage:list.html.twig', array(
                     'images' => $repository,
-                    'game1' => $game1,
+                    'title' => $title,
                     'games' => $games,
-                    'urls' => $urls,
         ));
     }
 
@@ -106,6 +108,21 @@ class GameImageController extends Controller
 
 
         return $this->redirectToRoute('GameImageedit', array('id' => $delete));
+    }
+    public function setLogoAction(Request $request)
+    {
+        $id = $request->get('id');
+        $title = $request->get('title');
+        $logohandler = $this->get('LogoHandler');
+        $em = $this->getDoctrine()->getManager();
+        $game = $em->getRepository('MaciejStudyBundle:Game')->findByTitle($title);
+        $logohandler->setLogo($em, $game, $id);
+        $games = $em->getRepository('MaciejStudyBundle:Game')->findAll();
+        
+        return $this->redirectToRoute('gameimagelist', array(
+            'title' =>$title,
+            'games' =>$games
+        ));
     }
 
 }

@@ -15,7 +15,7 @@ class GameController extends Controller
         $em = $this->getDoctrine()->getManager();
         $fileUploader = $this->get('FileUploader');
         $paging = $this->get('Paging');
-        $urls = $fileUploader->listing();
+        
         $url = '';
         $url = $request->get('url');
         $page = $request->get('pagee');
@@ -26,7 +26,6 @@ class GameController extends Controller
 
 
         return $this->render('MaciejUserBundle:Game:list.html.twig', array(
-                    'urls' => $urls,
                     'games' => $gamesFiltered,
                     'pages' => $pages,
                     'criteria' => $url,

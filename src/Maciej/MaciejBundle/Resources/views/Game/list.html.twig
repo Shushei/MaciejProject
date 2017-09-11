@@ -13,6 +13,7 @@
             <td>Company name</td>
             <td> Date </td>
             <td> Logo </td>
+
         </tr>
         {% for game in games %}
             <tr>
@@ -20,25 +21,19 @@
                 <td> {{game.title}} </td>    
                 <td> {{game.company.company}} </td>
                 <td> {{game.releaseDate.format('Y-m-d')}} </td>
-                <td>
-                {% if urls is empty %} 
-                <img src="{{asset('/uploads/logos/' ~ game.logo)}}"> 
-            {% else %}
-                {%for url in urls %}
-                    {% if url.key == game.logo %} 
-                        <img src="{{asset(url.url)}}"> 
+                {%for image in game.images%}
+                    {%if image.getIsLogo == 1%}
+                        <td><img src="{{asset(image.getgameimage())}}"></td>
+                        {%endif%}
+                    {%endfor%}
 
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-            </td>
-            <td>  <a href="{{ path('gamedelete', {'id' : game.id})}}">Delete</a> </td>
-            <td>  <a href="{{ path('gameedit', {'id' : game.id})}}">Edit</a> </td>
-            <td>  <a href="{{ path('gameimagelist', {'title' : game.title})}}">Gallery</a> </td>
-        </tr>
-    {% endfor %}
+                <td>  <a href="{{ path('gamedelete', {'id' : game.id})}}">Delete</a> </td>
+                <td>  <a href="{{ path('gameedit', {'id' : game.id})}}">Edit</a> </td>
+                <td>  <a href="{{ path('gameimagelist', {'title' : game.title})}}">Gallery</a> </td>
+            </tr>
+        {% endfor %}
 
-</table>
+    </table>
 
 
 

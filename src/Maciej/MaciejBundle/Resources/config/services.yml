@@ -1,4 +1,7 @@
 services:
+    LogoHandler:
+        class: Maciej\MaciejBundle\Service\LogoHandler
+        
     FileUploader:
         class:  Maciej\MaciejBundle\Service\FileUploader
         arguments:

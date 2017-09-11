@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class GameImageType extends AbstractType
 {
@@ -18,7 +19,11 @@ class GameImageType extends AbstractType
                 ->add('title', EntityType::class, array(
                     'class' => 'MaciejStudyBundle:Game',
                     'choice_label' => 'title'))
-                ->add('gameimage', FileType::class);
+                ->add('gameimage', FileType::class)
+                ->add('isLogo', CheckboxType::class, array(
+                    'label' => 'Is this image logo?',
+                    'required' => false,
+                ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

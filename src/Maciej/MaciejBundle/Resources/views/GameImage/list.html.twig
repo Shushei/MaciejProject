@@ -12,28 +12,28 @@
             <tr> 
                 <td>
                     <a href="{{ path('gameimagelist', {'title' : game.title})}}">{{ game.title}}</a>  
+                    {%for image in game.images%}
+                    {%endfor%}
                 </td>
             </tr>
         {% endfor %}
     </table>
-    <b> {{ game1.title }} Gallery </b></br>
-    {% if urls is empty %}
-        {%for image in images %}
-            {% if image.title == game1 %}
-                <img src="{{asset('/uploads/gameimages/' ~ image.gameimage )}}"> 
-                <a href="{{path('gameimagedelete', {'id' : image.id})}}"> Delete </a>
-              
-            {%endif%}
-        {%endfor%}
-    {% else %}
-        {%for url in urls %}
-            {%for image in images %}
-                {% if url.key == image.gameimage and image.title == game1%} 
-                    <img src="{{asset(url.url)}}"> 
-                    <a href="{{path('gameimagedelete', {'id' : image.id})}}"> Delete </a>
-                {% endif %}
-            {% endfor %}
-        {% endfor %}
-    {% endif %}
+    <b> {{ title }} Gallery </b></br>
+    {% for game in games %}
+        {% if game.gettitle() == title %}
+            {%for image in game.images%}
+                {% if image.getIsLogo() == 1 %}
+                    <img src="{{asset(image.getgameimage())}}"> </td></br>
+                {%endif%}
+            {%endfor%}
+        {%for image in game.images%}
+                {% if image.getIsLogo() == 0 %}
+                    <img src="{{asset(image.getgameimage())}}"> </td>
+        <a href="{{ path('gameimagesetlogo', {'id' : image.getId(), 'title' : game.title})}}">Set Logo</a>  
+                {%endif%}
+            {%endfor%}
+        {%endif%}
+    {% endfor %}
+
 
 {% endblock %}  
