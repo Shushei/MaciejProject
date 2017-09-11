@@ -55,7 +55,7 @@ gameimagedelete:
     defaults: { _controller: MaciejStudyBundle:GameImage:delete}
     
 gameimagesetlogo:
-    path: admin/gameimage/setlogo/{title}/{id}
+    path: admin/gameimage/setlogo/{gameId}/{id}
     defaults: { _controller: MaciejStudyBundle:GameImage:setLogo}
     
 logout:

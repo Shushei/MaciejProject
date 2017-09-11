@@ -3,14 +3,17 @@ namespace Maciej\MaciejBundle\Service;
 
 class LogoHandler
 {
-    public function setLogo($em, $title, $id)
+    public function setLogo($em, $gameId, $id)
     {
-        $images = $em->getRepository('MaciejStudyBundle:GameImage')->findByTitle($title);
+        $game = $em->getRepository('MaciejStudyBundle:Game')->findOneById($gameId);
+        $images = $em->getRepository('MaciejStudyBundle:GameImage')->findByTitle($game);
+
                 foreach($images as $image){
-                    $imageid = $image->getId();
                     if ($image->getId() == $id){
                         $image->setIsLogo('1');
+                        $game->setLogoLink($image->getGameImage());
                          $em->persist($image);
+                         $em->persist($game);
                     }else{
                         $image->setIsLogo('0');
                         $em->persist($image);
@@ -18,5 +21,9 @@ class LogoHandler
                 }
                 
                 $em->flush();
+    }
+    public function getLogo($em, $title)
+    {
+         $images = $em->getRepository('MaciejStudyBundle:GameImage')->findByTitle($title);
     }
 }

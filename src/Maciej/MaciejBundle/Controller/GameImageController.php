@@ -112,12 +112,13 @@ class GameImageController extends Controller
     public function setLogoAction(Request $request)
     {
         $id = $request->get('id');
-        $title = $request->get('title');
+        $gameId = $request->get('gameId');
         $logohandler = $this->get('LogoHandler');
         $em = $this->getDoctrine()->getManager();
-        $game = $em->getRepository('MaciejStudyBundle:Game')->findByTitle($title);
+        $game = $em->getRepository('MaciejStudyBundle:Game')->findOneById($gameId);
         $logohandler->setLogo($em, $game, $id);
         $games = $em->getRepository('MaciejStudyBundle:Game')->findAll();
+        $title = $game->getTitle();
         
         return $this->redirectToRoute('gameimagelist', array(
             'title' =>$title,

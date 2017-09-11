@@ -21,19 +21,18 @@
     <b> {{ title }} Gallery </b></br>
     {% for game in games %}
         {% if game.gettitle() == title %}
+            {%if game.getLogoLink() is not null %}
+                    <img src="{{asset(game.getLogoLink())}}"> </td></br>           
+            {%endif%}
             {%for image in game.images%}
-                {% if image.getIsLogo() == 1 %}
-                    <img src="{{asset(image.getgameimage())}}"> </td></br>
-                {%endif%}
-            {%endfor%}
-        {%for image in game.images%}
                 {% if image.getIsLogo() == 0 %}
-                    <img src="{{asset(image.getgameimage())}}"> </td>
-        <a href="{{ path('gameimagesetlogo', {'id' : image.getId(), 'title' : game.title})}}">Set Logo</a>  
-                {%endif%}
-            {%endfor%}
+                <img src="{{asset(image.getgameimage())}}"> </td>
+            <a href="{{ path('gameimagesetlogo', {'id' : image.getId(), 'gameId' : game.getId()})}}">Set Logo</a>  
         {%endif%}
-    {% endfor %}
+    {%endfor%}
+{%endif%}
+{% endfor %}
+<p id="logo"></p>
 
 
 {% endblock %}  
