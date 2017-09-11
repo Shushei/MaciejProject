@@ -12,12 +12,28 @@
             <tr> 
                 <td>
                     <a href="{{ path('gameimagelist', {'title' : game.title})}}">{{ game.title}}</a>  
+                    {%for image in game.images%}
+                    {%endfor%}
                 </td>
             </tr>
         {% endfor %}
     </table>
-    <b> {{ game1.title }} Gallery </b></br>
-        {{dump(games)}}
-    
+    <b> {{ title }} Gallery </b></br>
+    {% for game in games %}
+        {% if game.gettitle() == title %}
+            {%for image in game.images%}
+                {% if image.getIsLogo() == 1 %}
+                    <img src="{{asset(image.getgameimage())}}"> </td></br>
+                {%endif%}
+            {%endfor%}
+        {%for image in game.images%}
+                {% if image.getIsLogo() == 0 %}
+                    <img src="{{asset(image.getgameimage())}}"> </td>
+        <a href="{{ path('gameimagesetlogo', {'id' : image.getId(), 'title' : game.title})}}">Set Logo</a>  
+                {%endif%}
+            {%endfor%}
+        {%endif%}
+    {% endfor %}
+
 
 {% endblock %}  

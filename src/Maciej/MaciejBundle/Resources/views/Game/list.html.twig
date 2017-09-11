@@ -12,7 +12,8 @@
             <td>Title</td>
             <td>Company name</td>
             <td> Date </td>
-      
+            <td> Logo </td>
+
         </tr>
         {% for game in games %}
             <tr>
@@ -20,14 +21,19 @@
                 <td> {{game.title}} </td>    
                 <td> {{game.company.company}} </td>
                 <td> {{game.releaseDate.format('Y-m-d')}} </td>
-               
-            <td>  <a href="{{ path('gamedelete', {'id' : game.id})}}">Delete</a> </td>
-            <td>  <a href="{{ path('gameedit', {'id' : game.id})}}">Edit</a> </td>
-            <td>  <a href="{{ path('gameimagelist', {'title' : game.title})}}">Gallery</a> </td>
-        </tr>
-    {% endfor %}
+                {%for image in game.images%}
+                    {%if image.getIsLogo == 1%}
+                        <td><img src="{{asset(image.getgameimage())}}"></td>
+                        {%endif%}
+                    {%endfor%}
 
-</table>
+                <td>  <a href="{{ path('gamedelete', {'id' : game.id})}}">Delete</a> </td>
+                <td>  <a href="{{ path('gameedit', {'id' : game.id})}}">Edit</a> </td>
+                <td>  <a href="{{ path('gameimagelist', {'title' : game.title})}}">Gallery</a> </td>
+            </tr>
+        {% endfor %}
+
+    </table>
 
 
 

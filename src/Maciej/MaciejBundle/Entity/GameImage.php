@@ -40,7 +40,7 @@ class GameImage
     private $fileName;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="boolean")
      * 
      */
     private $isLogo;
