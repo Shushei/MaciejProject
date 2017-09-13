@@ -26,9 +26,13 @@
                 <td> {{game.getCompany().company}} </td>
                 <td> {{game.getReleaseDate().format('Y-m-d')}} </td>
                 <td>
-
+                 {%for image in game.images%}
+                    {%if image.getIsLogo == 1%}
+                        <img src="{{asset(image.getgameimage())}}">
+                       
+                        {%endif%}
+                    {%endfor%}
                 </td>
-
                 <td>  <a href={{ path('usergamesingle', {'id' : game.getId()})}}>View Game</a> </td>
 
             </tr>

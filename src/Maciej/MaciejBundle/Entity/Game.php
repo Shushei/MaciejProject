@@ -45,14 +45,27 @@ class Game
      */
     protected $company;
 
-
-
     /**
      *  @ORM\Column(type="date")
      * @Assert\NotBlank()
      * @Assert\Type("\DateTime")
      */
     protected $releaseDate;
+
+    /**
+     *  @ORM\Column(type="string", nullable = true)
+     */
+    private $logolink;
+
+    public function getLogoLink()
+    {
+        return $this->logolink;
+    }
+
+    public function setLogoLink($logolink)
+    {
+        $this->logolink = $logolink;
+    }
 
     public function getTitle()
     {

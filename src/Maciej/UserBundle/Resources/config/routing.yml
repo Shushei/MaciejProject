@@ -24,6 +24,10 @@ login:
     path: /login
     defaults: { _controller: MaciejUserBundle:Security:login}
     
+userregister:
+    path: /register
+    defaults: { _controller: MaciejUserBundle:Security:register}
+    
 
     
 
