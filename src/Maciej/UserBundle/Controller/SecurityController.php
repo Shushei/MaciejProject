@@ -37,7 +37,7 @@ class SecurityController extends Controller
             $em->persist($user);
             $em->flush();
             
-            return $this->redirectToRoute('usergamelist');
+            return $this->redirectToRoute('login');
         }
         return $this->render('MaciejUserBundle:Security:register.html.twig', array('form' => $form->createView()));
     }
