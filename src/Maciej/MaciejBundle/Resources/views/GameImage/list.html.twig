@@ -11,27 +11,27 @@
         {% for game in games %}
             <tr> 
                 <td>
-                    <a href="{{ path('gameimagelist', {'title' : game.title})}}">{{ game.title}}</a>  
+                    <a href="{{ path('gameimagelist', {'gameId' : game.id})}}">Game {{ game.title}}, Company {{game.getCompany().getCompany()}}</a>  
                     {%for image in game.images%}
                     {%endfor%}
                 </td>
             </tr>
         {% endfor %}
     </table>
-    <b> {{ title }} Gallery </b></br>
-    {% for game in games %}
-        {% if game.gettitle() == title %}
-            {%if game.getLogoLink() is not null %}
-                    <img src="{{asset(game.getLogoLink())}}"> </td></br>           
+    <b> {{ game1.0.getTitle() }} {{ dump(game1)}} Gallery </b></br>
+
+
+            {%if game1.0.getLogoLink() is not null %}
+                    <img src="{{asset(game1.0.getLogoLink())}}"> </td></br>           
             {%endif%}
-            {%for image in game.images%}
+            {%for image in game1.0.getImages()%}
                 {% if image.getIsLogo() == 0 %}
                 <img src="{{asset(image.getgameimage())}}"> </td>
-            <a href="{{ path('gameimagesetlogo', {'id' : image.getId(), 'gameId' : game.getId()})}}">Set Logo</a>  
+            <a href="{{ path('gameimagesetlogo', {'id' : image.getId(), 'gameId' : game1.0.getId()})}}">Set Logo</a>  
         {%endif%}
     {%endfor%}
-{%endif%}
-{% endfor %}
+
+
 <p id="logo"></p>
 
 

@@ -6,7 +6,7 @@ class LogoHandler
     public function setLogo($em, $gameId, $id)
     {
         $game = $em->getRepository('MaciejStudyBundle:Game')->findOneById($gameId);
-        $images = $em->getRepository('MaciejStudyBundle:GameImage')->findByTitle($game);
+        $images = $game->getImages();
 
                 foreach($images as $image){
                     if ($image->getId() == $id){

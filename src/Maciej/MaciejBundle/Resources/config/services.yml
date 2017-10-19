@@ -14,24 +14,24 @@ services:
                 company:    '%company_adress%'
                 gameimage:      '%gameimage_adress%' 
     
-    FileUploaderAWS:   
-        class: Maciej\MaciejBundle\Service\FileUploaderAWS
-        arguments:
-            $s3Client: "@amazon.s3_client"  
-            $showArgs:
-                logo :      '%logo_adressAWS%'
-                company:    '%company_adressAWS%'
-                gameimage:      '%gameimage_adressAWS%' 
+    #FileUploaderAWS:   
+     #   class: Maciej\MaciejBundle\Service\FileUploaderAWS
+      #  arguments:
+       #     $s3Client: "@amazon.s3_client"  
+        #    $showArgs:
+         #       logo :      '%logo_adressAWS%'
+          #      company:    '%company_adressAWS%'
+           #     gameimage:      '%gameimage_adressAWS%' 
                 
-    amazon.s3_client:
-        class: Aws\S3\S3Client
-        arguments:
-            -
-                version: '2006-03-01'
-                region: 'us-east-1'
-                credentials:
-                    key: %aws_s3_key%
-                    secret: %aws_s3_secret%
+    # amazon.s3_client:
+      #  class: Aws\S3\S3Client
+       #arguments:
+       #     -
+        #        version: '2006-03-01'
+         #       region: 'us-east-1'
+          #      credentials:
+           #         key: %aws_s3_key%
+    #                secret: %aws_s3_secret%
     
     FileHandlingListener:
         class: Maciej\MaciejBundle\EventListener\FileHandlingListener

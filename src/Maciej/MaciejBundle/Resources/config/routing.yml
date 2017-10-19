@@ -47,7 +47,7 @@ gameimageform:
     defaults: {_controller : MaciejStudyBundle:GameImage:form}
     
 gameimagelist:
-    path:  admin/gameimage/list/{title}
+    path:  admin/gameimage/list/{gameId}
     defaults: { _controller: MaciejStudyBundle:GameImage:list }
     
 gameimagedelete:

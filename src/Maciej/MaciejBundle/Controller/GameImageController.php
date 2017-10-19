@@ -39,15 +39,16 @@ class GameImageController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('MaciejStudyBundle:GameImage')->findAll();
         $games = $em->getRepository('MaciejStudyBundle:Game')->findall();
-        $title = $request->get('title');
-        $game1 = $em->getRepository('MaciejStudyBundle:Game')->findOneByTitle($title);
+        $gameId = $request->get('gameId');
+        $game1 = $em->getRepository('MaciejStudyBundle:Game')->findById($gameId);
 
 
 
         return $this->render('MaciejStudyBundle:GameImage:list.html.twig', array(
                     'images' => $repository,
-                    'title' => $title,
+                    'title' => $gameId,
                     'games' => $games,
+                    'game1' => $game1
         ));
     }
 
@@ -122,7 +123,8 @@ class GameImageController extends Controller
         
         return $this->redirectToRoute('gameimagelist', array(
             'title' =>$title,
-            'games' =>$games
+            'games' =>$games,
+            'gameId' => $gameId
         ));
     }
 

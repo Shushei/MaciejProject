@@ -7,7 +7,7 @@
         <button class="dropbtn">Game Galleries</button>
         <div class="dropdown-content">
             {% for game in games %}
-                <a href="{{ path('gameimagelist', {'title' : game.title})}}"> {{ game.title }} Gallery</a>
+                <a href="{{ path('gameimagelist', {'gameId' : game.id})}}"> {{ game.title }} Gallery</a>
             {%endfor%}
         </div>
 
