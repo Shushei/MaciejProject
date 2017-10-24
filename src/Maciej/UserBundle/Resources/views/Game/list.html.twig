@@ -21,6 +21,7 @@
             <td> Logo </td>
         </tr>
         {% for game in games %}
+            
             <tr class="gameRow" id="game{{game.getId()}}">
                 <td> {{game.getTitle()}} </td>    
                 <td> {{game.getCompany().company}} </td>
