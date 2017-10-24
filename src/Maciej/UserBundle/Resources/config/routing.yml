@@ -28,6 +28,9 @@ userregister:
     path: /register
     defaults: { _controller: MaciejUserBundle:Security:register}
     
+notfound:
+    path: /notfound
+    defaults: { _controller: MaciejUserBundle:Company:NotFound }
 
     
 

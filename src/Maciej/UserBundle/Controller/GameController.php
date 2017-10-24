@@ -36,16 +36,12 @@ class GameController extends Controller
     public function singleAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $fileUploader = $this->get('FileUploader');
-        $urls = $fileUploader->listing();
         $id = $request->get('id');
         $Game = $em->getRepository('MaciejStudyBundle:Game')->find($id);
         $gamesimages = $em->getRepository('MaciejStudyBundle:GameImage')->findAll();
 
         return $this->render('MaciejUserBundle:Game:single.html.twig', array(
-                    'urls' => $urls,
                     'Game' => $Game,
-                    'gameimages' => $gamesimages
         ));
     }
 

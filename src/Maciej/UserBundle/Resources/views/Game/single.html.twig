@@ -19,15 +19,9 @@
             <td> {{Game.getCompany().getCompany()}} </td>
             <td> {{Game.getReleaseDate().format('Y-m-d')}} </td>
             <td>
-                {% if urls is empty %} 
-                    <img src="{{asset('/uploads/logos/' ~ Game.getLogo())}}"> 
-                {% else %}
-                    {%for url in urls %}
-                        {% if url.key == Game.getLogo() %} 
-                            <img src="{{asset(url.url)}}"> 
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
+                {% if Game.getLogoLink() is defined %}
+                <img src="{{asset(Game.getLogoLink())}}">    
+                {%endif%}
             </td>
         </tr>
 
@@ -36,16 +30,10 @@
     <table>
         
         <tr>
-            {%for image in gameimages %}
-                {% if urls is empty %} 
-                <td> <img src="{{asset('/uploads/gameimages/' ~ image.gameimage)}}"> </td>
-                {% else %}
-                    {%for url in urls %}
-                        {% if url.key == Game.logo %} 
-                            <img src="{{asset(url.url)}}"> 
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
+            {%for image in Game.getImages() %}
+                {% if image.getIsLogo() == false %}
+                    <td><img src="{{asset(image.getGameImage())}}">    </td>
+                    {%endif%}
                 {% set MyVal = MyVal + 1 %}
                 {% if MyVal == 6 %}
                     {% set MyVal = 0 %}

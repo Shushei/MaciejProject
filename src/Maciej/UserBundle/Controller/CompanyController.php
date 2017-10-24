@@ -30,5 +30,9 @@ class CompanyController extends Controller
                     'games' => $games
         ));
     }
+    public function NotFoundAction()
+    {
+        return $this->render('MaciejUserBundle:Company:NotFound.html.twig');
+    }
 
 }
