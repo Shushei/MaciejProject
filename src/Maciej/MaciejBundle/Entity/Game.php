@@ -54,6 +54,7 @@ class Game
 
     /**
      *  @ORM\Column(type="string", nullable = true)
+     *  @Groups({"list"})
      */
     private $logolink;
 

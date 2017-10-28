@@ -53,7 +53,7 @@ class GameController extends FOSRestController
         $em = $this->getDoctrine()->getManager();
         $gamesFiltered= $em->getRepository('MaciejStudyBundle:Game')->findByCriteria($criteria, $page, $size);
         if ($gamesFiltered == null){
-            return new View("There exists no companies", Response::HTTP_NOT_FOUND);
+            return new View("There exists no games", Response::HTTP_NOT_FOUND);
         }
         return $gamesFiltered;
         

@@ -29,7 +29,7 @@
 
                 <td>  <a href="{{ path('gamedelete', {'id' : game.id})}}">Delete</a> </td>
                 <td>  <a href="{{ path('gameedit', {'id' : game.id})}}">Edit</a> </td>
-                <td>  <a href="{{ path('gameimagelist', {'title' : game.title})}}">Gallery</a> </td>
+                <td>  <a href="{{ path('gameimagelist', {'gameId' : game.getId()})}}">Gallery</a> </td>
             </tr>
         {% endfor %}
 

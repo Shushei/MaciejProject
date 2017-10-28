@@ -6,50 +6,77 @@
 
 
 {% block body %} 
-    <table>
-        <tr>
-            <td>Company Name</td>
-            <td>Owner Name</td>
-            <td>Owner Surname</td>
-            <td>Founding Date </td>
-        </tr>
-        <tr>
-            <td> {{company.getCompany}} </td> 
-            <td> {{company.getOwnername}} </td>
-            <td> {{company.getOwnersurname}} </td>
-            <td> {{company.getFounded.format('Y-m-d')}} </td>
-            <td> 
-               
-                    <img src="{{asset(company.clogo)}}"> 
-              
-            </td>
-        </tr>
-    </table>
-            Company released games:
-    <table>
-         <tr>
-            <td>Title</td>
-            <td>Company name</td>
-            <td> Date </td>
-            <td> Logo </td>
-        </tr>
-        {{dump(company)}}
-        {% for game in games %}
-            {%if game.company == company %}
-                <tr>
-                    <td> {{game.title}} </td>    
-                    <td> {{game.company.company}} </td>
-                    <td> {{game.releaseDate.format('Y-m-d')}} </td>
-                    <td>
-                      
-                  
-                            
-                    </td>
-                    <td>  <a href="{{ path('usergamesingle', {'id' : game.getId})}}">Game View</a> </td>
-                </tr>
-            {%endif%}
-        {%endfor%}
 
+
+<body>
+
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <!-- Page Heading/Breadcrumbs -->
+      <h1 class="mt-4 mb-3"> 
+        <small>Subheading</small>
+      </h1>
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Companies</a>
+        </li>
+        <li class="breadcrumb-item active">{{company.getCompany()}}</li>
+      </ol>
+
+      <!-- Intro Content -->
+      <div class="row">
+        <div class="col-lg-6">
+          <img class="img-fluid rounded mb-4" src="{{asset(company.getClogo())}}" alt="">
+        </div>
+        <div class="col-lg-6">
+          <h2>About {{company.getCompany()}}</h2>
+          <p> Company Owner: {{ company.getOwnerName()}} {{company.getOwnerSurname}}</br>
+              Founding date : {{ company.getFounded().format('Y-m-d')}} </br>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem corporis eveniet. Odit, temporibus reprehenderit dolorum!</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti eum ratione ex ea praesentium quibusdam? Aut, in eum facere corrupti necessitatibus perspiciatis quis?</p>
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <!-- Team Members -->
+      <h2>Our Games</h2>
+ 
+      <div class="row">
+           {% for game in company.getGames() %}
+        <div class="col-lg-4 mb-4">
+          <div class="card h-100 text-center">
+              {% if game.getLogoLink() is not null %}
+            <img class="card-img-top" src="{{asset(game.getLogoLink())}}" alt="">
+            {%else%}
+                <img class="card-img-top" src="http://placehold.it/750x450" alt="">
+                There is no game logo.
+             {%endif%}
+            <div class="card-body">
+              <h4 class="card-title"> {{game.getTitle()}}</h4>
+              <h6 class="card-subtitle mb-2 text-muted">Release Date {{game.getReleaseDate().format('Y-m-d')}}</h6>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus aut mollitia eum ipsum fugiat odio officiis odit.</p>
+            </div>
+            <div class="card-footer">
+              <a href="{{ path('usergamesingle', {'id' : game.getId})}}"> {{ game.getTitle()}}</a>
+            </div>
+          </div>
+        </div>
+         {% endfor%} 
+       
+      </div>
+      <!-- /.row -->
+
+     
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
 
 
 
