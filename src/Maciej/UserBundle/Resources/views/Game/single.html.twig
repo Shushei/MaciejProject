@@ -6,45 +6,55 @@
 
 
 {% block body %} 
-    {{ dump(Game.getImages()) }}
-    <table>
-        <tr>
-            <td>Title</td>
-            <td>Company name</td>
-            <td> Date </td>
-            <td> Logo </td>
-        </tr>
 
-        <tr>
-            <td> {{Game.getTitle()}} </td>    
-            <td> {{Game.getCompany().getCompany()}} </td>
-            <td> {{Game.getReleaseDate().format('Y-m-d')}} </td>
-            <td>
-                {% if Game.getLogoLink() is defined %}
-                <img src="{{asset(Game.getLogoLink())}}">    
-                {%endif%}
-            </td>
-        </tr>
+    <!-- Page Content -->
+    <div class="container">
 
-    </table>
-    Game Gallery
-    <table>
-        
-        <tr>
-            {%for image in Game.getImages() %}
-                {% if image.getIsLogo() == false %}
-                    <td><img src="{{asset(image.getGameImage())}}">    </td>
-                    {%endif%}
-                {% set MyVal = MyVal + 1 %}
-                {% if MyVal == 6 %}
-                    {% set MyVal = 0 %}
-                </tr>
-                <tr>
-                {%endif%}
-            {%endfor%}
-        </tr>
+      <!-- Page Heading/Breadcrumbs -->
+      <h1 class="mt-4 mb-3"> 
+        <small>Games</small>
+      </h1>
 
-    </table>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="index.html">Game View</a>
+        </li>
+        <li class="breadcrumb-item active">{{game.getTitle()}}</li>
+      </ol>
+
+      <!-- Intro Content -->
+      <div class="row">
+        <div class="col-lg-6">
+             {% if game.getLogoLink() is empty %}
+            <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
+            {%else%}
+            <img class="img-fluid rounded mb-3 mb-md-0" src="{{asset(game.getLogoLink())}}" alt="">
+            {%endif%}        
+        </div>
+        <div class="col-lg-6">
+          <h2>About {{game.getTitle()}}</h2>
+          <p> Release Date : {{ game.getReleaseDate().format('Y-m-d')}} </br>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem corporis eveniet. Odit, temporibus reprehenderit dolorum!</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, consequuntur, modi mollitia corporis ipsa voluptate corrupti eum ratione ex ea praesentium quibusdam? Aut, in eum facere corrupti necessitatibus perspiciatis quis?</p>
+        </div>
+      </div>
+      <!-- /.row -->
+
+      <!-- Team Members -->
+      <h2>Gallery</h2>
+
+        <div class="row">
+           {% for image in game.getImages() %}
+            {% if image.getIsLogo() == false %}
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 text-center">
+                    <img class="card-img-top" src="{{asset(image.getGameImage())}}" alt="">
+                    </div>
+                </div>
+             {%endif%}
+         {% endfor%} 
+       
+      </div>
 
 
 

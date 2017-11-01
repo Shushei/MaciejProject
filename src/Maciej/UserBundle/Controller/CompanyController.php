@@ -4,17 +4,23 @@ namespace Maciej\UserBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Maciej\UserBundle\Form\SearchCompanyType;
 
 class CompanyController extends Controller
 {
 
     public function listAction()
     {
+        $pageSize = 2;
+         $url = '';
         $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('MaciejStudyBundle:Company')->findAll();
+        $repository = $em->getRepository('MaciejStudyBundle:Company');
+        $companyFiltered = $repository->findByCriteria($url, 1, $pageSize);
 
         return $this->render('MaciejUserBundle:Company:list.html.twig', array(
-                    'companies' => $repository
+                    'companies' => $companyFiltered,
+                    'criteria' => $url,
+                    'size' => $pageSize
         ));
     }
 
@@ -34,5 +40,16 @@ class CompanyController extends Controller
     {
         return $this->render('MaciejUserBundle:Company:NotFound.html.twig');
     }
+    
+    public function companySearchAction(Request $request)
+    {
+        $formData = array();
+        $form = $this->createForm(SearchCompanyType::class, $formData );
+
+        return $this->render('MaciejUserBundle:Company:searchFormCompany.html.twig', array(
+                    'form' => $form->createView()
+        ));
+    }
 
 }
+

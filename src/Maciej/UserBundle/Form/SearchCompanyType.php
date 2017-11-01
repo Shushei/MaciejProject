@@ -9,23 +9,17 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class SearchGameType extends AbstractType
+class SearchCompanyType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('searchTitle', TextType::class, array(
+                ->add('searchCompany', TextType::class, array(
                     'required' => false,
-                    'label' => "Title"
+                    'label' => "Company"
                 ))
-                ->add('searchCompany', EntityType::class, array(
-                    'class' => 'MaciejStudyBundle:Company',
-                    'choice_label' => 'company',
-                    'choice_value' => 'company',
-                    
-                    'required' => false
-                ))
+
                 ->add('minDate', DateType::class, array(
                     'required' => false
                 ))

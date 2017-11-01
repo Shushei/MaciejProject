@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Maciej\UserBundle\Repository\CompanyRepository")
  * @ORM\Table(name="Company")
  * @UniqueEntity("company")
  */

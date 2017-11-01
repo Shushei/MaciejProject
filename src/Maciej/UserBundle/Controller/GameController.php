@@ -13,21 +13,12 @@ class GameController extends Controller
     {
         $pageSize = 2;
         $em = $this->getDoctrine()->getManager();
-        $fileUploader = $this->get('FileUploader');
-        $paging = $this->get('Paging');
-        
         $url = '';
-        $url = $request->get('url');
-        $page = $request->get('pagee');
         $games = $em->getRepository('MaciejStudyBundle:Game');
-        $gamesFiltered = $games->findByCriteria($url, $page, $pageSize);
-        $gamesCounted = $games->countByCriteria($url, $page, $pageSize);
-        $pages = $paging->paging($gamesCounted, $pageSize);
-
+        $gamesFiltered = $games->findByCriteria($url, 1, $pageSize);
 
         return $this->render('MaciejUserBundle:Game:list.html.twig', array(
                     'games' => $gamesFiltered,
-                    'pages' => $pages,
                     'criteria' => $url,
                     'size' => $pageSize
         ));
@@ -41,43 +32,15 @@ class GameController extends Controller
         $gamesimages = $em->getRepository('MaciejStudyBundle:GameImage')->findAll();
 
         return $this->render('MaciejUserBundle:Game:single.html.twig', array(
-                    'Game' => $Game,
+                    'game' => $Game,
         ));
     }
 
-    public function searchAction(Request $request)
+    public function gameSearchAction(Request $request)
     {
         $formData = array();
-        $form = $this->createForm(SearchGameType::class, $formData, array(
-            'action' => $this->generateUrl('usergamesearch')
-        ));
-        $pagee = $request->get('pagee');
-        $url = $request->get('url');
-        $form->handleRequest($request);
-        if ($form->isSubmitted() OR ! empty($url) OR ! empty($pagee)) {
-            $searchData = $form->getData();
-            if (!empty($searchData['searchTitle'])) {
-                $url['title'] = $searchData['searchTitle'];
-            }
-            if (!empty($searchData['searchCompany'])) {
-                $url['company'] = $searchData['searchCompany']->getCompany();
-            }
-            if (!empty($searchData['minDate'])) {
-                $url['minDate'] = $searchData['minDate'];
-            }
-            if (!empty($searchData['maxDate'])) {
-                $url['maxDate'] = $searchData['maxDate'];
-            }
+        $form = $this->createForm(SearchGameType::class, $formData );
 
-            if (!empty($url)) {
-                return $this->redirectToRoute('usergamelist', array('url' => $url,
-                            'pagee' => $pagee,
-                ));
-            } else {
-                return $this->redirectToRoute('usergamelist', array(
-                            'pagee' => $pagee));
-            }
-        }
         return $this->render('MaciejUserBundle:Game:searchFormGame.html.twig', array(
                     'form' => $form->createView()
         ));

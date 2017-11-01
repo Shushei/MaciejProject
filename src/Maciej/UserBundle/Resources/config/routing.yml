@@ -3,22 +3,20 @@
 usergamelist:
     path: /game/list/{pagee}
     defaults: { _controller: MaciejUserBundle:Game:list, pagee: 1 }
-    
-usergamesearch:
-    path: /game/search
-    defaults: { _controller: MaciejUserBundle:Game:search }
   
 usergamesingle:
-    path: /game/{id}
+    path: /game/single/{id}
     defaults: { _controller: MaciejUserBundle:Game:single }
+
       
 usercompanylist:
     path: /company/list
     defaults: { _controller: MaciejUserBundle:Company:list }
     
 usercompanysingle:
-    path: /company/{id}
+    path: /company/single/{id}
     defaults: { _controller: MaciejUserBundle:Company:single }
+
     
 login:
     path: /login
@@ -31,6 +29,14 @@ userregister:
 notfound:
     path: /notfound
     defaults: { _controller: MaciejUserBundle:Company:NotFound }
+    
+usercompanysearch:
+  path: /company/search
+  defaults: { _controller: MaciejUserBundle:Company:companySearch}
+  
+usergamesearch:
+  path: /game/search
+  defaults: { _controller: MaciejUserBundle:Game:gameSearch}
 
     
 

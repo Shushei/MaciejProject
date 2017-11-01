@@ -16,12 +16,12 @@
 
       <!-- Page Heading/Breadcrumbs -->
       <h1 class="mt-4 mb-3"> 
-        <small>Subheading</small>
+        <small>Companies</small>
       </h1>
 
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="index.html">Companies</a>
+          <a href="index.html">Company View</a>
         </li>
         <li class="breadcrumb-item active">{{company.getCompany()}}</li>
       </ol>
@@ -60,7 +60,10 @@
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus aut mollitia eum ipsum fugiat odio officiis odit.</p>
             </div>
             <div class="card-footer">
-              <a href="{{ path('usergamesingle', {'id' : game.getId})}}"> {{ game.getTitle()}}</a>
+
+                        <a class="btn btn-primary" href={{ path('usergamesingle', {'id' : game.getId()})}}>View Game
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
             </div>
           </div>
         </div>

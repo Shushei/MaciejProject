@@ -5,6 +5,7 @@ namespace Maciej\Api2Bundle\Controller;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations\View;
+use Symfony\Component\HttpFoundation\Request;
 
 class CompanyController extends FOSRestController
 {
@@ -41,5 +42,21 @@ class CompanyController extends FOSRestController
         
         return $company;
     }
-
+  /**
+     * 
+     * @View(serializerGroups={"Default", "list"})
+     */
+    public function getListByCriteriaAction(Request $request)
+    {   
+        $page =   $request->get('page');
+        $criteria =  $request->get('criteria');
+        $size =  $request->get('size');
+        $em = $this->getDoctrine()->getManager();
+        $companyFiltered= $em->getRepository('MaciejStudyBundle:Company')->findByCriteria($criteria, $page, $size);
+        if ($companyFiltered == null){
+            return new View("There are no companies", Response::HTTP_NOT_FOUND);
+        }
+        return $companyFiltered;
+        
+    }
 }
